@@ -1,5 +1,7 @@
 package ISTP.domain.bloodDonation.accept;
 
+import ISTP.domain.BaseEntity;
+import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import jakarta.persistence.*;
 
@@ -9,15 +11,16 @@ import static jakarta.persistence.EnumType.STRING;
 
 
 @Entity
-public class Accept {
+public class Accept extends BaseEntity { // 헌혈 해주는 사람
 
     @Id
     @GeneratedValue
     @Column(name = "accept_id")
     private Long id;
 
-    private LocalDateTime acceptDate; // 요청 수락 시간
-    private LocalDateTime cancelDate; // 요청 취소 시간
+    @OneToOne
+    @JoinColumn(name = "request_id")
+    private Request request;
 
     @Enumerated(STRING)
     @Column(name = "accept_status")
@@ -25,5 +28,5 @@ public class Accept {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    Member member;
+    private Member member;
 }

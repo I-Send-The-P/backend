@@ -1,5 +1,6 @@
 package ISTP.domain.help.question;
 
+import ISTP.domain.BaseEntity;
 import ISTP.domain.help.Answer;
 import ISTP.domain.member.Member;
 import jakarta.persistence.*;
@@ -8,8 +9,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.EnumType.*;
+
 @Entity
-public class Question {
+public class Question extends BaseEntity { // 문의사항
 
     @Id
     @GeneratedValue
@@ -18,10 +21,8 @@ public class Question {
 
     private String title;
     private String content;
-    private LocalDateTime createDate; // 작성 시간
-    private LocalDateTime updateDate; // 수정 시간
 
-    @Enumerated
+    @Enumerated(STRING)
     @Column(name = "inquiry_status")
     private InquiryStatus status; //문의 상태
 
@@ -29,6 +30,7 @@ public class Question {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers = new ArrayList<>();
+    @Enumerated(STRING)
+    private ContentType contentType;
+
 }

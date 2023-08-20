@@ -1,5 +1,6 @@
 package ISTP.domain.help;
 
+import ISTP.domain.BaseEntity;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Member;
 import jakarta.persistence.*;
@@ -7,7 +8,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Answer {
+public class Answer extends BaseEntity { // 문의답변
 
     @Id
     @GeneratedValue
@@ -15,13 +16,12 @@ public class Answer {
     private Long id;
 
     private String content;
-    private LocalDateTime createDate; // 작성 시간
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "question_id")
     private Question question;
 }
