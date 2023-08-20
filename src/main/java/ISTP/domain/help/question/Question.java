@@ -33,4 +33,9 @@ public class Question extends BaseEntity { // 문의사항
     @Enumerated(STRING)
     private ContentType contentType;
 
+    //==연관관계 메서드==//
+    public void changeQuestion(Member member) {
+        this.member = member;
+    }
+
 }

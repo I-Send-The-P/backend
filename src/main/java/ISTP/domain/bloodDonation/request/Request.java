@@ -35,4 +35,8 @@ public class Request extends BaseEntity { // 헌혈 요청
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public void changeRequest(Member member) {
+        this.member = member;
+    }
 }

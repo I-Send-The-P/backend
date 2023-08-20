@@ -28,4 +28,9 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    //==연관관계 메서드==//
+    public void changeAccept(Member member) {
+        this.member = member;
+    }
 }

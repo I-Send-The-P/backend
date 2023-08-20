@@ -4,9 +4,12 @@ import ISTP.domain.BaseEntity;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.bloodDonation.request.Request;
+import ISTP.domain.board.Board;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ import java.util.List;
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
+@Getter
+@ToString(of = {"loginId", "name", "age", "gender"})
 public class Member extends BaseEntity { // 사용자
 
     @Id
@@ -52,5 +57,33 @@ public class Member extends BaseEntity { // 사용자
     private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Answer> boards = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
+
+
+    //== 연관관계 메서드==//
+    public void addRequest(Request request) {
+        requests.add(request);
+        request.changeRequest(this);
+    }
+
+    public void addQuestion(Question question) {
+        questions.add(question);
+        question.changeQuestion(this);
+    }
+
+    public void addAccept(Accept accept) {
+        accepts.add(accept);
+        accept.changeAccept(this);
+    }
+
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+        answer.changeAnswer(this);
+    }
+
+    public void addBoard(Board board) {
+        boards.add(board);
+        board.changeBoard(this);
+    }
+
 }

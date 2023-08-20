@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
+
 @EntityListeners(AutoCloseable.class)
 @MappedSuperclass
 @Getter

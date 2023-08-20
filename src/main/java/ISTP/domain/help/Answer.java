@@ -24,4 +24,9 @@ public class Answer extends BaseEntity { // 문의답변
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
+
+    //==연관관계 메서드==//
+    public void changeAnswer(Member member) {
+        this.member = member;
+    }
 }
