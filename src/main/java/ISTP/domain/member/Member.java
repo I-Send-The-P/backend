@@ -9,7 +9,6 @@ import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -21,7 +20,6 @@ import static jakarta.persistence.EnumType.STRING;
 @Entity
 @Getter
 @ToString(of = {"loginId", "password", "name", "age", "gender"})
-@NoArgsConstructor
 public class Member extends BaseEntity { // 사용자
 
     @Id
@@ -60,6 +58,11 @@ public class Member extends BaseEntity { // 사용자
 
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
+
+
+    public Member() {
+    }
+
 
     public Member(String loginId, String password) {
         this.loginId = loginId;

@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -15,14 +16,20 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class RequestServiceTest {
 
     @Autowired
     RequestService requestService;
 
+    @Autowired
+    MemberService memberService;
+
     @Test
     public void saveRequestTest() {
         Member member = new Member("abc", "aaa");
+
+        memberService.save(member);
 
         Request request = new Request(member, "질병", "내용", LocalDate.now().plusDays(3),
                 "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
@@ -44,5 +51,20 @@ class RequestServiceTest {
         requestService.changeStatus(request);
 
         assertThat(request.getStatus()).isEqualTo(RequestStatus.진행);
+    }
+
+    @Test
+    public void delete_request() {
+        Member member = new Member("abc", "aaa");
+
+        Request request = new Request(member, "질병", "내용", LocalDate.now().plusDays(3),
+                "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
+                "가족", "혈소판 헌혈");
+
+        requestService.save(request);
+
+        requestService.delete(request.getId());
+
+        assertThat(requestService.findAll()).isNotIn(request);
     }
 }
