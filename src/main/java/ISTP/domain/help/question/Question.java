@@ -26,7 +26,7 @@ public class Question extends BaseEntity { // 문의사항
     @Column(name = "inquiry_status")
     private InquiryStatus status; //문의 상태
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

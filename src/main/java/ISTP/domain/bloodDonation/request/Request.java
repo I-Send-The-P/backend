@@ -32,7 +32,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private String requests_blood_type; // 무슨 헌혈인지
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 }

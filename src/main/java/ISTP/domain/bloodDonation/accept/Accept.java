@@ -18,7 +18,7 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     @Column(name = "accept_id")
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
     private Request request;
 
@@ -26,7 +26,7 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     @Column(name = "accept_status")
     private AcceptStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 }
