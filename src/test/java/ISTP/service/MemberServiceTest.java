@@ -8,6 +8,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -26,6 +27,34 @@ class MemberServiceTest {
 
         Member findMember = memberService.findById(memberId);
         assertThat(member).isEqualTo(findMember);
+    }
+
+    @Test
+    public void duplicatedSave() {
+        // Given
+        Member member1 = new Member("loginId1", "password1");
+        Member member2 = new Member("loginId1", "password2");
+
+        // When
+        memberService.save(member1);
+
+        // Then
+        assertThrows(IllegalArgumentException.class, () -> memberService.save(member2));
+    }
+
+    @Test
+    public void findPassword() {
+        Member member1 = new Member("loginId1", "password1");
+        memberService.save(member1);
+        String findPassword = memberService.findByPassword(member1.getLoginId());
+        assertThat(member1.getPassword()).isEqualTo(findPassword);
+    }
+
+    @Test
+    public void findNotPassword() {
+        Member member1 = new Member("loginId1", "password1");
+        memberService.save(member1);
+        assertThrows(IllegalArgumentException.class, () -> memberService.findByPassword("notMember"));
     }
 
 }
