@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 import static jakarta.persistence.EnumType.STRING;
 
-
 @Entity
 public class Accept extends BaseEntity { // 헌혈 해주는 사람
 
