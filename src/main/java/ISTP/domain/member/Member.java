@@ -91,5 +91,4 @@ public class Member extends BaseEntity { // 사용자
         boards.add(board);
         board.changeBoard(this);
     }
-
 }

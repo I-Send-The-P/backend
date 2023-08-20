@@ -4,10 +4,12 @@ import ISTP.domain.BaseEntity;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 public class Answer extends BaseEntity { // 문의답변
 
     @Id
