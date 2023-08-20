@@ -4,7 +4,6 @@ import ISTP.domain.member.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -57,4 +56,53 @@ class MemberServiceTest {
         assertThrows(IllegalArgumentException.class, () -> memberService.findByPassword("notMember"));
     }
 
+    @Test
+    public void duplicatedLoginId() {
+        Member member1 = new Member("loginId1", "password1");
+        memberService.save(member1);
+
+        String loginId = "loginId2";
+        assertThat(memberService.duplicatedLoginId(loginId)).isTrue();
+    }
+
+    @Test
+    public void duplicatedLoginIdError() {
+        Member member1 = new Member("loginId1", "password1");
+        memberService.save(member1);
+
+        String loginId = "loginId1";
+        assertThrows(IllegalArgumentException.class, () -> memberService.duplicatedLoginId(loginId));
+    }
+
+    @Test
+    public void duplicatedNickname() {
+        Member member1 = new Member("loginId1", "password1", "nickname1");
+        memberService.save(member1);
+
+        String nickname = "nickname2";
+        assertThat(memberService.duplicatedNickname(nickname)).isTrue();
+    }
+
+    @Test
+    public void duplicatedNicknameError() {
+        Member member1 = new Member("loginId1", "password1", "nickname1");
+        memberService.save(member1);
+
+        String nickname = "nickname1";
+        assertThrows(IllegalArgumentException.class, () -> memberService.duplicatedNickname(nickname));
+    }
+
+    @Test
+    public void passwordReEnter() {
+        String password = "aaa";
+        String rePassword = "aaa";
+        boolean result = memberService.passwordReEnter(password, rePassword);
+        assertThat(result).isTrue();
+    }
+    @Test
+    public void passwordReEnterError() {
+        String password = "aaa";
+        String rePassword = "bbb";
+        assertThrows(IllegalArgumentException.class, () -> memberService.passwordReEnter(password, rePassword));
+    }
 }

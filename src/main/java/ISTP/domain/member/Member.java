@@ -75,6 +75,12 @@ public class Member extends BaseEntity { // 사용자
         this.phoneNumber = phoneNumber;
     }
 
+    public Member(String loginId, String password, String nickname) {
+        this.loginId = loginId;
+        this.password = password;
+        this.nickname = nickname;
+    }
+
     //== 연관관계 메서드==//
     public void addRequest(Request request) {
         requests.add(request);
