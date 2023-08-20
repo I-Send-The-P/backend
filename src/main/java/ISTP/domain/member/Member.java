@@ -9,10 +9,8 @@ import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
-<<<<<<< HEAD
-=======
 import lombok.ToString;
->>>>>>> 3f44858f9588c51318594debc277ee195e7dcce0
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,10 +20,7 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter
-<<<<<<< HEAD
-=======
 @ToString(of = {"loginId", "name", "age", "gender"})
->>>>>>> 3f44858f9588c51318594debc277ee195e7dcce0
 public class Member extends BaseEntity { // 사용자
 
     @Id
@@ -64,6 +59,14 @@ public class Member extends BaseEntity { // 사용자
 
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
+
+    public Member() {
+    }
+
+    public Member(String loginId, String password) {
+        this.loginId = loginId;
+        this.password = password;
+    }
 
 
     //== 연관관계 메서드==//

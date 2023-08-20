@@ -38,7 +38,6 @@ public class Request extends BaseEntity { // 헌혈 요청
     @JoinColumn(name = "member_id")
     private Member member;
 
-<<<<<<< HEAD
     public Request() {
     }
 
