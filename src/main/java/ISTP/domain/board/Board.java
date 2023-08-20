@@ -3,8 +3,10 @@ package ISTP.domain.board;
 import ISTP.domain.BaseEntity;
 import ISTP.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Board extends BaseEntity {
 
     @Id

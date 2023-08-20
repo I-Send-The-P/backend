@@ -4,12 +4,14 @@ import ISTP.domain.BaseEntity;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
+@Getter
 public class Accept extends BaseEntity { // 헌혈 해주는 사람
 
     @Id

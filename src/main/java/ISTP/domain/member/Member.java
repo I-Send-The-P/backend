@@ -4,9 +4,11 @@ import ISTP.domain.BaseEntity;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.bloodDonation.request.Request;
+import ISTP.domain.board.Board;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
+@Getter
 public class Member extends BaseEntity { // 사용자
 
     @Id
@@ -52,5 +55,13 @@ public class Member extends BaseEntity { // 사용자
     private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Answer> boards = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
+
+    public Member() {
+    }
+
+    public Member(String loginId, String password) {
+        this.loginId = loginId;
+        this.password = password;
+    }
 }

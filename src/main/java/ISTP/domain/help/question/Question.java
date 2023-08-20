@@ -4,6 +4,7 @@ import ISTP.domain.BaseEntity;
 import ISTP.domain.help.Answer;
 import ISTP.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 import static jakarta.persistence.EnumType.*;
 
 @Entity
+@Getter
 public class Question extends BaseEntity { // 문의사항
 
     @Id
