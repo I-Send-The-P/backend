@@ -15,12 +15,11 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    @Transactional //회원 저장 로직
+    @Transactional
     public Long save(Member member) {
-
-        Member findMember = memberRepository.findById(member.getId()).get();
-        if(findMember != null) {
-            throw new IllegalArgumentException("중복회원가입 오류 발생");
+        Member existingMember = memberRepository.findByLoginId(member.getLoginId());
+        if (existingMember != null) {
+            throw new IllegalArgumentException("이미 가입된 회원입니다");
         }
 
         memberRepository.save(member);
@@ -28,11 +27,25 @@ public class MemberService {
         return member.getId();
     }
 
+
     public Member findById(Long id) {
         Member findMember = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
         log.info("아이디로 회원 찾기 {}", findMember);
         return findMember;
     }
+
+    //비밀번호 까먹었을 때 아이디로 비밀번호 찾는 로직
+    public String findByPassword(String loginId) {
+        Member findMember = memberRepository.findByLoginId(loginId);
+
+        if(findMember == null) {
+            throw new IllegalArgumentException("존재하지 않는 회원입니다");
+        }
+        log.info("아이디로 비밀벊 찾기");
+        return findByPassword(findMember.getLoginId());
+    }
+
+
 
 }
