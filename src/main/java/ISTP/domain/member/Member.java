@@ -11,7 +11,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter
-@ToString(of = {"loginId", "name", "age", "gender"})
+@ToString(of = {"loginId", "password", "name", "age", "gender"})
 public class Member extends BaseEntity { // 사용자
 
     @Id
@@ -60,14 +59,15 @@ public class Member extends BaseEntity { // 사용자
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
 
+
     public Member() {
     }
+
 
     public Member(String loginId, String password) {
         this.loginId = loginId;
         this.password = password;
     }
-
 
     //== 연관관계 메서드==//
     public void addRequest(Request request) {

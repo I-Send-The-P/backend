@@ -45,4 +45,9 @@ public class RequestService {
     public void changeStatus3(Request request) { // 취소누르면 다시 신청으로 바꾸기
         request.update_request();
     }
+
+    @Transactional
+    public void delete(Long requestId) {
+        requestRepository.deleteById(requestId);
+    }
 }
