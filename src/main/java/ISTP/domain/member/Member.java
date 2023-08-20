@@ -9,6 +9,10 @@ import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
+<<<<<<< HEAD
+=======
+import lombok.ToString;
+>>>>>>> 3f44858f9588c51318594debc277ee195e7dcce0
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +22,10 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter
+<<<<<<< HEAD
+=======
+@ToString(of = {"loginId", "name", "age", "gender"})
+>>>>>>> 3f44858f9588c51318594debc277ee195e7dcce0
 public class Member extends BaseEntity { // 사용자
 
     @Id
@@ -57,11 +65,30 @@ public class Member extends BaseEntity { // 사용자
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
 
-    public Member() {
+
+    //== 연관관계 메서드==//
+    public void addRequest(Request request) {
+        requests.add(request);
+        request.changeRequest(this);
     }
 
-    public Member(String loginId, String password) {
-        this.loginId = loginId;
-        this.password = password;
+    public void addQuestion(Question question) {
+        questions.add(question);
+        question.changeQuestion(this);
+    }
+
+    public void addAccept(Accept accept) {
+        accepts.add(accept);
+        accept.changeAccept(this);
+    }
+
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+        answer.changeAnswer(this);
+    }
+
+    public void addBoard(Board board) {
+        boards.add(board);
+        board.changeBoard(this);
     }
 }

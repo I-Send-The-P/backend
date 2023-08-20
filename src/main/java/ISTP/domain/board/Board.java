@@ -22,4 +22,9 @@ public class Board extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    //==연관관계 메서드==//
+    public void changeBoard(Member member) {
+        this.member = member;
+    }
 }

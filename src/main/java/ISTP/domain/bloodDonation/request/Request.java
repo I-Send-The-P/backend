@@ -38,6 +38,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     @JoinColumn(name = "member_id")
     private Member member;
 
+<<<<<<< HEAD
     public Request() {
     }
 
@@ -66,5 +67,9 @@ public class Request extends BaseEntity { // 헌혈 요청
 
     public void update_finish() {
         this.status = RequestStatus.완료;
+    }
+
+    public void changeRequest(Member member) {
+        this.member = member;
     }
 }
