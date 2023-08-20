@@ -2,6 +2,7 @@ package ISTP.domain.board;
 
 import ISTP.domain.BaseEntity;
 import ISTP.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -19,6 +20,7 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private BoardType boardType;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
