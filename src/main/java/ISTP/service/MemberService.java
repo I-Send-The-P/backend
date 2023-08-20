@@ -42,10 +42,8 @@ public class MemberService {
         if(findMember == null) {
             throw new IllegalArgumentException("존재하지 않는 회원입니다");
         }
-        log.info("아이디로 비밀벊 찾기");
-        return findByPassword(findMember.getLoginId());
+        log.info("아이디로 비밀번호 찾기");
+        return findMember.getPassword();
     }
-
-
 
 }
