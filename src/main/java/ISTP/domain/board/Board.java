@@ -44,4 +44,11 @@ public class Board extends BaseEntity {
         member.addBoard(this); // 연관관계 설정
     }
 
+    //게시글 수정하여 업데이트 하는 메서드
+    public void updateBoard(String title, String content, BoardType boardType) {
+        this.title = title;
+        this.content = content;
+        this.boardType = boardType;
+    }
+
 }

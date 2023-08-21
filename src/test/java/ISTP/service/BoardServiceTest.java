@@ -5,11 +5,11 @@ import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,7 +25,6 @@ class BoardServiceTest {
     BoardService boardService;
     @Autowired
     MemberService memberService;
-
     @BeforeEach
     public void before() {
 
@@ -54,8 +53,10 @@ class BoardServiceTest {
 
     @Test
     public void findById() {
-        Board findBoard = boardService.findById(1L);
-        assertThat(findBoard.getTitle()).isEqualTo("title1");
+        Board board = new Board("abc", "abc", BoardType.공지사항, null);
+        boardService.save(board);
+        Board findBoard = boardService.findById(board.getId());
+        assertThat(findBoard).isEqualTo(board);
     }
 
     @Test
@@ -75,6 +76,23 @@ class BoardServiceTest {
         for (Board board : boards) {
             System.out.println("board = " + board);
         }
+    }
+
+    @Test
+    @Rollback
+    public void updateBoard() {
+        Board board = new Board("abc", "abc", BoardType.공지사항, null);
+        boardService.save(board);
+        boardService.updateBoard(board, "updateTitle", "updateContent", BoardType.인터뷰);
+        assertThat(board.getTitle()).isEqualTo("updateTitle");
+    }
+
+    @Test
+    public void deleteBoard() {
+        Board board = new Board("abc", "abc", BoardType.공지사항, null);
+        boardService.save(board);
+        boardService.deleteBoard(board);
+        assertThrows(IllegalArgumentException.class, () -> memberService.findById(board.getId()));
     }
 
 }

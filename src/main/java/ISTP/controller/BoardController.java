@@ -3,6 +3,8 @@ package ISTP.controller;
 
 import ISTP.domain.board.Board;
 import ISTP.domain.member.Member;
+import ISTP.dtos.board.BoardDto;
+import ISTP.dtos.board.BoardEditForm;
 import ISTP.dtos.board.BoardSaveForm;
 import ISTP.dtos.board.BoardSummaryDto;
 import ISTP.service.BoardService;
@@ -25,6 +27,7 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
 
+    //공지사항 리스트 조회
     @ResponseBody
     @GetMapping
     public List<BoardSummaryDto> boardList() {
@@ -54,5 +57,38 @@ public class BoardController {
         boardService.save(board);
         return board.getId();
     }
+
+    //각 게시글 조회
+    @ResponseBody
+    @GetMapping("{boardId}")
+    public BoardDto board(@PathVariable Long boardId) {
+        Board board = boardService.findById(boardId);
+        BoardDto boardDto = new BoardDto(board);
+        return boardDto;
+    }
+
+    //게시글 수정
+    @PostMapping("{boardId}/edit")
+    public Long editBoard(@Validated @RequestBody BoardEditForm form, BindingResult bindingResult, @PathVariable Long boardId) {
+
+        if(bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            //에러처리 어케 할까여
+            throw new IllegalArgumentException("게시글 작성 시 오류 발생");
+        }
+        Board board = boardService.findById(boardId);
+        boardService.updateBoard(board, form.getTitle(), form.getContent(), form.getBoardType());
+        return board.getId();
+    }
+
+    //게시글 삭제
+    @DeleteMapping("{boardId}/delete")
+    public void deleteBoard(@PathVariable Long boardId) {
+        Board board = boardService.findById(boardId);
+        boardService.deleteBoard(board);
+    }
+
+
+
 
 }
