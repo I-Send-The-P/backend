@@ -59,4 +59,9 @@ public class RequestService {
         return requestRepository.findAllByBloodTypeAndMemberNot(bloodType, member);
     }
 
+    //멤버가 작성한 요청 리스트 찾는 메서드
+    public List<Request> findAllByMemberNickname(String nickname) {
+        return requestRepository.findAllByMemberNickname(nickname);
+    }
+
 }

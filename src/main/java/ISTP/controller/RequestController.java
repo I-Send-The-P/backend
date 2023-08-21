@@ -1,7 +1,7 @@
 package ISTP.controller;
 
-import ISTP.Dtos.RequestDto;
-import ISTP.Dtos.Requestrequest;
+import ISTP.dtos.RequestDto;
+import ISTP.dtos.Requestrequest;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;

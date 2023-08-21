@@ -131,7 +131,6 @@ public class Member extends BaseEntity { // 사용자
 
     public void addBoard(Board board) {
         boards.add(board);
-        board.changeBoard(this);
     }
 
     // 닉네임 변경하는 메서드

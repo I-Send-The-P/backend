@@ -1,4 +1,4 @@
-package ISTP.Dtos.member;
+package ISTP.dtos.member;
 
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.member.Gender;

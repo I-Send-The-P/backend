@@ -1,6 +1,6 @@
 package ISTP.controller;
 
-import ISTP.Dtos.member.AlarmDto;
+import ISTP.dtos.member.AlarmDto;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Alarm;
 import ISTP.domain.member.Member;

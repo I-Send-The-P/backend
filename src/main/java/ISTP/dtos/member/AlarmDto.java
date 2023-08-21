@@ -1,9 +1,8 @@
-package ISTP.Dtos.member;
+package ISTP.dtos.member;
 
 
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
-import ISTP.domain.member.Member;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

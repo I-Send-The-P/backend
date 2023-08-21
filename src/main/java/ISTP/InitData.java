@@ -3,6 +3,8 @@ package ISTP;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
+import ISTP.domain.board.Board;
+import ISTP.domain.board.BoardType;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
 import jakarta.annotation.PostConstruct;
@@ -61,6 +63,23 @@ public class InitData {
             em.persist(request5);
             em.persist(request6);
 
+            for(int i = 1; i <= 12; i++) {
+                Board board;
+                if(i <= 3) {
+                    board = new Board("title" + i, "content1" + i, BoardType.공지사항, member1);
+                }
+                else if(i <= 6) {
+                    board = new Board("title" + i, "content1" + i, BoardType.인터뷰, member1);
+                }
+                else if(i <= 9) {
+
+                    board = new Board("title" + i, "content1" + i, BoardType.공지사항, member2);
+                }
+                else {
+                    board = new Board("title" + i, "content1" + i, BoardType.인터뷰, member2);
+                }
+                em.persist(board);
+            }
         }
         }
 

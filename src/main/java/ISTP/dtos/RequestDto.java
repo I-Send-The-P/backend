@@ -1,11 +1,9 @@
-package ISTP.Dtos;
+package ISTP.dtos;
 
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 

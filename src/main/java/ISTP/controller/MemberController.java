@@ -1,10 +1,9 @@
 package ISTP.controller;
 
-import ISTP.Dtos.member.AlarmDto;
-import ISTP.Dtos.member.MemberMyPageDto;
-import ISTP.Dtos.member.MemberSaveForm;
+import ISTP.dtos.RequestDto;
+import ISTP.dtos.member.MemberMyPageDto;
+import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.request.Request;
-import ISTP.domain.member.Alarm;
 import ISTP.domain.member.Member;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
@@ -24,6 +23,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final RequestService requestService;
 
     //회원가입 로직
     @PostMapping("/save")
@@ -82,6 +82,10 @@ public class MemberController {
     }
 
     //닉네임 수정
+
+    /**
+     * 수정시 닉네임과 관련된 모든 부분 고쳐야하는데 아직 안했음!! 
+     */
     @PostMapping("/myPages/{memberId}/edit/nickname")
     public void editNickName(@PathVariable Long memberId, @RequestParam String nickname) {
         Member member = memberService.findById(memberId);
@@ -102,4 +106,29 @@ public class MemberController {
         memberService.withdrawal(member);
     }
 
+    //내가 등록한 긴급헌혈 요청서 목록
+    @ResponseBody
+    @GetMapping("/maPages/{memberId}/myRequests")
+    public List<RequestDto> myRequestList(@PathVariable Long memberId) {
+        Member member = memberService.findById(memberId);
+        List<Request> allByMemberNickname = requestService.findAllByMemberNickname(member.getNickname());
+        List<RequestDto> requestDtos = new ArrayList<>();
+        for (Request request : allByMemberNickname) {
+            RequestDto requestDto = new RequestDto(request);
+            requestDtos.add(requestDto);
+        }
+        return requestDtos;
+    }
+
+    //내가 요청 수락을 한 긴급헌혈 요청서 목록
+    /**
+     *  요청 서비스 및 레포지토리 개발이 아직 안돼서 구현 x
+     */
+
+    /*@ResponseBody
+    @GetMapping("/myPages/{memberId}/myAccepts")
+    public List<RequestDto> myAcceptRequestList(@PathVariable Long memberId) {
+        Member member = memberService.findById(memberId);
+
+    }*/
 }
