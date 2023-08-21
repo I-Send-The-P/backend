@@ -94,6 +94,19 @@ public class Member extends BaseEntity { // 사용자
         this.alarm = Alarm.가능;
     }
 
+    public Member(String loginId, String password, String name, String nickname, int age, Gender gender, String phoneNumber, BloodType myBloodType, String email, String address) {
+        this.loginId = loginId;
+        this.password = password;
+        this.name = name;
+        this.nickname = nickname;
+        this.age = age;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.myBloodType = myBloodType;
+        this.email = email;
+        this.address = address;
+        this.alarm = Alarm.가능;
+    }
 
     //== 연관관계 메서드==//
     public void addRequest(Request request) {

@@ -1,6 +1,7 @@
 package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Alarm;
 import ISTP.domain.member.Member;
 import ISTP.repository.MemberRepository;
@@ -81,7 +82,8 @@ public class MemberService {
     //비밀번호 재입력 확인 기능
     public boolean passwordReEnter(String password, String rePassword) {
         if(!(password.equals(rePassword))) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            log.info("비밀번호가 일치하지 않습니다 {} != {}", password, rePassword);
+            return false;
         }
         log.info("비밀번호가 일치합니다 {}", password);
         return true;
@@ -149,4 +151,13 @@ public class MemberService {
         log.info("혈액형이 {}인 모든 멤버 조회", bloodType);
         return memberRepository.findAllByMyBloodType(bloodType);
     }
+
+    // 특정 멤버의 요청글 작성 리스트 받아오기
+    public List<Request> getMemberBoards(Member member) {
+        return member.getRequests();
+    }
+
+
+    // 특정 멤버가 요청 수락한 글 리스트 받아오기
+    // 이거는 accept 상태 구현이 되면 시작하겠습니다
 }

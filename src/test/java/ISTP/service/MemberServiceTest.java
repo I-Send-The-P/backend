@@ -141,7 +141,8 @@ class MemberServiceTest {
     public void passwordReEnterError() {
         String password = "aaa";
         String rePassword = "bbb";
-        assertThrows(IllegalArgumentException.class, () -> memberService.passwordReEnter(password, rePassword));
+        boolean result = memberService.passwordReEnter(password, rePassword);
+        assertThat(result).isFalse();
     }
 
     @Test
