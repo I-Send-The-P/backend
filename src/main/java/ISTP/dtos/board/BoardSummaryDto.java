@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class BoardSummaryDTO {
+public class BoardSummaryDto {
 
     private String title;
     private LocalDateTime createdTime;
     private String nickname;
 
-    public BoardSummaryDTO(Board board) {
+    public BoardSummaryDto(Board board) {
         this.title = board.getTitle();
         this.createdTime = board.getCreateDate();
         this.nickname = board.getMember().getNickname();

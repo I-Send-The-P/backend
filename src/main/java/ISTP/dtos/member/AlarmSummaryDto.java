@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class AlarmDto {
+public class AlarmSummaryDto {
 
     private String title;
     private String content;
     private RequestStatus status;
     private LocalDateTime createdTime;
 
-    public AlarmDto(Request request) {
+    public AlarmSummaryDto(Request request) {
         title = request.getTitle();
         content = request.getContent();
         status = request.getStatus();
