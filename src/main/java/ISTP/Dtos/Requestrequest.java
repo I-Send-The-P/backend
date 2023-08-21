@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Requestrequest {
 
     private String sickness;
+    private String title;
     private String content;
     private String number;
     private String hospital;

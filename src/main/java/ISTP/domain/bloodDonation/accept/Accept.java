@@ -3,6 +3,7 @@ package ISTP.domain.bloodDonation.accept;
 import ISTP.domain.BaseEntity;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -27,6 +28,7 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     @Column(name = "accept_status")
     private AcceptStatus status;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

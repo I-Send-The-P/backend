@@ -4,6 +4,7 @@ import ISTP.domain.BaseEntity;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -22,6 +23,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private Long id;
 
     private String sickness;
+    private String title;
     private String content; // 요청 사연
     private LocalDate duration; // 마감 날짜
     private String number; //환자 등록 번호
@@ -33,7 +35,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private String relationship;
     private String requests_blood_type; // 무슨 헌혈인지
 
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -41,10 +43,11 @@ public class Request extends BaseEntity { // 헌혈 요청
     public Request() {
     }
 
-    public Request(Member member, String sickness, String content, LocalDate duration, String number, String hospital,
+    public Request(Member member, String sickness, String title, String content, LocalDate duration, String number, String hospital,
                    RequestStatus status, BloodType bloodType, String relationship, String requests_blood_type) {
         this.member = member;
         this.sickness = sickness;
+        this.title = title;
         this.content = content;
         this.duration = duration;
         this.number = number;
@@ -53,7 +56,7 @@ public class Request extends BaseEntity { // 헌혈 요청
         this.bloodType = bloodType;
         this.relationship = relationship;
         this.requests_blood_type = requests_blood_type;
-    }
+    } // createdTime도 생성자에서 받기
 
 
     public void update_request() {

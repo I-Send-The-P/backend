@@ -3,6 +3,7 @@ package ISTP.domain.help.question;
 import ISTP.domain.BaseEntity;
 import ISTP.domain.help.Answer;
 import ISTP.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -28,6 +29,7 @@ public class Question extends BaseEntity { // 문의사항
     @Column(name = "inquiry_status")
     private InquiryStatus status; //문의 상태
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
