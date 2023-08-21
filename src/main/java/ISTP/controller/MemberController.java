@@ -1,16 +1,15 @@
 package ISTP.controller;
 
+import ISTP.Dtos.member.MemberMyPageDto;
 import ISTP.Dtos.member.MemberSaveForm;
 import ISTP.domain.member.Member;
 import ISTP.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +19,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    //회원가입 로직
     @PostMapping("/save")
     public Long save(@Validated @RequestBody MemberSaveForm form, BindingResult bindingResult) {
 
@@ -40,5 +40,52 @@ public class MemberController {
 
         Long memberId = memberService.save(member);
         return memberId;
+    }
+
+    //회원가입 시 로그인 아이디 중복 확인 로직
+    @PostMapping("/save/check_duplicate/loginId")
+    @ResponseBody
+    public String checkDuplicateLoginId(@RequestParam String loginId) {
+         if(memberService.duplicatedLoginId(loginId)) {
+             return "ok";
+         }
+         else {
+             return "no";
+         }
+    }
+
+    //회원가입 시 닉네임 중복 확인 로직
+    @PostMapping("/save/check_duplicate/nickname")
+    @ResponseBody
+    public String checkDuplicateNickname(@RequestParam String nickname) {
+        if(memberService.duplicatedNickname(nickname)) {
+            return "ok";
+        }
+        else {
+            return "no";
+        }
+    }
+
+    //마이페이지로에 뿌려줄 DTO
+    @ResponseBody
+    @GetMapping("/myPages/{memberId}")
+    public MemberMyPageDto myPage(@PathVariable Long memberId) {
+        Member member = memberService.findById(memberId);
+        MemberMyPageDto myPageDto = new MemberMyPageDto(member);
+        return myPageDto;
+    }
+
+    //닉네임 수정
+    @PostMapping("/myPages/{memberId}/edit/nickname")
+    public void editNickName(@PathVariable Long memberId, @RequestParam String nickname) {
+        Member member = memberService.findById(memberId);
+        memberService.changeNickname(member, nickname);
+    }
+
+    //주소 수정
+    @PostMapping("/myPages/{memberId}/edit/address")
+    public void editAddress(@PathVariable Long memberId, @RequestParam String address) {
+        Member member = memberService.findById(memberId);
+        memberService.changeAddress(member, address);
     }
 }
