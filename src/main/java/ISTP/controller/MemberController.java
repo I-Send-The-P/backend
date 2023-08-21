@@ -1,15 +1,20 @@
 package ISTP.controller;
 
+import ISTP.Dtos.member.AlarmDto;
 import ISTP.Dtos.member.MemberMyPageDto;
 import ISTP.Dtos.member.MemberSaveForm;
+import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import ISTP.service.MemberService;
+import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final RequestService requestService;
 
     //회원가입 로직
     @PostMapping("/save")
@@ -88,4 +94,27 @@ public class MemberController {
         Member member = memberService.findById(memberId);
         memberService.changeAddress(member, address);
     }
+
+    //회원 삭제
+    @DeleteMapping("/maPages/{memberId}/delete")
+    public void deleteMember(@PathVariable Long memberId){
+        Member member = memberService.findById(memberId);
+        memberService.withdrawal(member);
+    }
+
+
+    @ResponseBody
+    @GetMapping("myAlarms/{memberId}")
+    public List<AlarmDto> myAlarm(@PathVariable Long memberId) {
+        Member member = memberService.findById(memberId);
+        List<Request> allByBloodType = requestService.findAllByBloodType(member.getMyBloodType());
+        List<AlarmDto> alarmDtoList = new ArrayList<>();
+        for (Request request : allByBloodType) {
+            AlarmDto alarmDto = new AlarmDto(request);
+            alarmDtoList.add(alarmDto);
+        }
+        return alarmDtoList;
+    }
+
+
 }

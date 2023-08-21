@@ -3,7 +3,6 @@ package ISTP.Dtos.member;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

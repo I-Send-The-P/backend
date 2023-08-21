@@ -1,6 +1,8 @@
 package ISTP.service;
 
+import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
+import ISTP.domain.member.Member;
 import ISTP.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.message.ReusableMessage;
@@ -50,4 +52,10 @@ public class RequestService {
     public void delete(Long requestId) {
         requestRepository.deleteById(requestId);
     }
+
+    //알람 발송을 위해 혈액형이 같은 모든 멤버 조회 메서드
+    public List<Request> findAllByBloodType(BloodType bloodType) {
+        return requestRepository.findAllByBloodType(bloodType);
+    }
+
 }
