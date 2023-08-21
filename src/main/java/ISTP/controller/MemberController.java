@@ -17,6 +17,6 @@ public class MemberController {
     public void save(@RequestBody String loginId) {
         Member abc = new Member(loginId, "abc");
         Long id = memberService.save(abc);
-        System.out.println("id = " + id);
     }
+
 }

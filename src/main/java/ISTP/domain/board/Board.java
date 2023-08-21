@@ -27,4 +27,9 @@ public class Board extends BaseEntity {
     public void changeBoard(Member member) {
         this.member = member;
     }
+
+    //게시글 상태 바꾸는 메서드
+    public void changeBoardType(BoardType boardType) {
+        this.boardType = boardType;
+    }
 }
