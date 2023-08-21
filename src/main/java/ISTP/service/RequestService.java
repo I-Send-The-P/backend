@@ -53,9 +53,10 @@ public class RequestService {
         requestRepository.deleteById(requestId);
     }
 
-    //알람 발송을 위해 혈액형이 같은 모든 멤버 조회 메서드
-    public List<Request> findAllByBloodType(BloodType bloodType) {
-        return requestRepository.findAllByBloodType(bloodType);
+
+    // 멤버가 작성한 요청을 제외한 혈액형 타입으로 요청 리스트 찾는 메서드
+    public List<Request> findAllByBloodTypeExcludingMemberRequests(BloodType bloodType, Member member) {
+        return requestRepository.findAllByBloodTypeAndMemberNot(bloodType, member);
     }
 
 }

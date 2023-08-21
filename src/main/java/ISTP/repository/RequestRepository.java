@@ -12,6 +12,5 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     Optional<Request> findById(Long requestId);
 
-    //혈액형 타입으로 요청리스트 찾는 메서드 -> 내가 받은 알림 리스트에 뿌려줄 데이터가 필요해서 제가 추가했어요!
-    List<Request> findAllByBloodType(BloodType bloodType);
+    List<Request> findAllByBloodTypeAndMemberNot(BloodType bloodType, Member member);
 }

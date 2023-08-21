@@ -4,6 +4,7 @@ import ISTP.Dtos.member.AlarmDto;
 import ISTP.Dtos.member.MemberMyPageDto;
 import ISTP.Dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.request.Request;
+import ISTP.domain.member.Alarm;
 import ISTP.domain.member.Member;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
@@ -23,7 +24,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final RequestService requestService;
 
     //회원가입 로직
     @PostMapping("/save")
@@ -101,20 +101,5 @@ public class MemberController {
         Member member = memberService.findById(memberId);
         memberService.withdrawal(member);
     }
-
-
-    @ResponseBody
-    @GetMapping("myAlarms/{memberId}")
-    public List<AlarmDto> myAlarm(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
-        List<Request> allByBloodType = requestService.findAllByBloodType(member.getMyBloodType());
-        List<AlarmDto> alarmDtoList = new ArrayList<>();
-        for (Request request : allByBloodType) {
-            AlarmDto alarmDto = new AlarmDto(request);
-            alarmDtoList.add(alarmDto);
-        }
-        return alarmDtoList;
-    }
-
 
 }

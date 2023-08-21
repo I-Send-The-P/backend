@@ -43,7 +43,7 @@ public class InitData {
             Request request1 = new Request(member1, "sickness1", "title1", "content1", LocalDate.now().plusDays(1), "111-111", "나사렛병원", RequestStatus.신청, BloodType.A_PLUS, "부", "혈소판1");
             Request request2 = new Request(member1, "sickness2", "title2", "content2", LocalDate.now().plusDays(2), "222-222", "나사렛병원", RequestStatus.신청, BloodType.B_PLUS, "모", "혈소판2");
             Request request3 = new Request(member1, "sickness3", "title3", "content3", LocalDate.now().plusDays(3), "333-333", "나사렛병원", RequestStatus.신청, BloodType.A_PLUS, "친구", "혈소판3");
-            Request request4 = new Request(member2, "sickness4", "title4", "content4", LocalDate.now().plusDays(4), "444-444", "인하대병원", RequestStatus.신청, BloodType.B_PLUS, "지인", "혈소판4");
+            Request request4 = new Request(member2, "sickness4", "title4", "content4", LocalDate.now().plusDays(4), "444-444", "인하대병원", RequestStatus.신청, BloodType.A_PLUS, "지인", "혈소판4");
             Request request5 = new Request(member2, "sickness5", "title5", "content5", LocalDate.now().plusDays(5), "555-555", "인하대병원", RequestStatus.신청, BloodType.A_PLUS, "동생", "혈소판5");
             Request request6 = new Request(member2, "sickness6", "title6", "content6", LocalDate.now().plusDays(6), "666-666", "인하대병원", RequestStatus.신청, BloodType.B_PLUS, "형", "혈소판6");
 
