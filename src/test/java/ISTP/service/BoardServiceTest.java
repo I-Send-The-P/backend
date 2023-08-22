@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -79,7 +78,6 @@ class BoardServiceTest {
     }
 
     @Test
-    @Rollback
     public void updateBoard() {
         Board board = new Board("abc", "abc", BoardType.공지사항, null);
         boardService.save(board);
@@ -92,7 +90,7 @@ class BoardServiceTest {
         Board board = new Board("abc", "abc", BoardType.공지사항, null);
         boardService.save(board);
         boardService.deleteBoard(board);
-        assertThrows(IllegalArgumentException.class, () -> memberService.findById(board.getId()));
+        assertThrows(IllegalArgumentException.class, () -> boardService.findById(board.getId()));
     }
 
 }

@@ -1,18 +1,14 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
-import ISTP.domain.member.Member;
 import ISTP.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,7 +27,7 @@ public class BoardService {
 
     public Board findById(Long boardId) {
         Board findBoard = boardRepository.findById(boardId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시입니다"));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다"));
         log.info("아이디로 게시글 찾기 {}", findBoard);
         return findBoard;
     }
@@ -59,7 +55,6 @@ public class BoardService {
     public void deleteBoard(Board board) {
         log.info("{} 게시글 삭제", board.getId());
         boardRepository.delete(board);
-
     }
 
 }

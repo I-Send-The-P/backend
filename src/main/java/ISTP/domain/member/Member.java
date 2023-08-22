@@ -116,7 +116,6 @@ public class Member extends BaseEntity { // 사용자
 
     public void addQuestion(Question question) {
         questions.add(question);
-        question.changeQuestion(this);
     }
 
     public void addAccept(Accept accept) {

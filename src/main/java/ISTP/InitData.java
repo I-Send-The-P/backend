@@ -5,6 +5,8 @@ import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
+import ISTP.domain.help.question.InquiryType;
+import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
 import jakarta.annotation.PostConstruct;
@@ -80,7 +82,23 @@ public class InitData {
                 }
                 em.persist(board);
             }
+            for(int i = 1; i <= 12; i++) {
+                Question question;
+                if(i <= 3) {
+                    question = new Question("title" + i, "content" + i, InquiryType.계정문의, member1);
+                }
+                else if(i <= 6) {
+                    question = new Question("title" + i, "content" + i, InquiryType.건의사항, member2);
+                }
+                else if(i <= 9) {
+                    question = new Question("title" + i, "content" + i, InquiryType.프로그램문의, member1);
+                }
+                else {
+                    question = new Question("title" + i, "content" + i, InquiryType.기타, member2);
+                }
+                em.persist(question);
+            }
         }
-        }
+    }
 
 }

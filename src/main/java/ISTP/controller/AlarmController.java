@@ -10,8 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,18 +21,22 @@ public class AlarmController {
     private final MemberService memberService;
     private final RequestService requestService;
 
-    //내 알림창 들어갔을 때 보이는 알람 리스트
     @ResponseBody
     @GetMapping("/{memberId}")
-    public List<AlarmSummaryDto> myAlarmList(@PathVariable Long memberId) {
+    public Map<String, Object> myAlarmList(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
+        Alarm alarm = member.getAlarm();
         List<Request> allByBloodType = requestService.findAllByBloodTypeExcludingMemberRequests(member.getMyBloodType(), member);
         List<AlarmSummaryDto> alarmDtoList = new ArrayList<>();
         for (Request request : allByBloodType) {
             AlarmSummaryDto alarmDto = new AlarmSummaryDto(request);
             alarmDtoList.add(alarmDto);
         }
-        return alarmDtoList;
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("alarmStatus", alarm);
+        result.put("alarmList", alarmDtoList);
+        return result;
     }
 
     //호출 될 때마다 알람 온 오프로 되는 기능
