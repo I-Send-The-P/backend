@@ -1,5 +1,4 @@
-package ISTP.Dtos.request;
-
+package ISTP.dtos.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

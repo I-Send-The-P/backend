@@ -3,10 +3,7 @@ package ISTP.controller;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Member;
-import ISTP.dtos.help.HelpDto;
-import ISTP.dtos.help.QuestionEditForm;
-import ISTP.dtos.help.QuestionSaveForm;
-import ISTP.dtos.help.QuestionSummaryDto;
+import ISTP.dtos.help.*;
 import ISTP.service.AnswerService;
 import ISTP.service.MemberService;
 import ISTP.service.QuestionService;
@@ -84,9 +81,18 @@ public class HelpController {
     }
 
     //1:1문의내역 답변 달기
-    /*@PostMapping("/{memberId}/list/{questionId}/answer")
-    public Long answerSave(@Validated @RequestBody AnswerSaveFrom form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
-
-    }*/
+    @PostMapping("/{memberId}/list/{questionId}/answer")
+    public Long answerSave(@Validated @RequestBody AnswerSaveForm form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
+        if(bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            //에러처리 어케 할까여
+            throw new IllegalArgumentException("게시글 작성 시 오류 발생");
+        }
+        Member member = memberService.findById(memberId);
+        Question question = questionService.findById(questionId);
+        Answer answer = answerService.createAnswer(form.getContent(), member, question);
+        Long saveAnswerId = answerService.save(answer);
+        return saveAnswerId;
+    }
 
 }

@@ -19,7 +19,7 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter
-@ToString(of = {"loginId", "password", "name", "myBloodType"})
+@ToString(of = {"loginId", "password", "name", "myBloodType", "count"})
 public class Member extends BaseEntity { // 사용자
 
     @Id
@@ -156,7 +156,6 @@ public class Member extends BaseEntity { // 사용자
         count++;
     }
 
-    //블러드 타입 설정을 위해 이거만 열었습니다 ㅜㅜ
     public void setMyBloodType(BloodType myBloodType) {
         this.myBloodType = myBloodType;
     }

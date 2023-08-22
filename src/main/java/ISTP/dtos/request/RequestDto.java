@@ -1,4 +1,4 @@
-package ISTP.Dtos.request;
+package ISTP.dtos.request;
 
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;

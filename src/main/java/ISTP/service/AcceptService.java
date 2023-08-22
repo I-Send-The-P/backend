@@ -1,11 +1,13 @@
 package ISTP.service;
 
 import ISTP.domain.bloodDonation.accept.Accept;
+import ISTP.domain.member.Member;
 import ISTP.repository.AcceptRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,5 +41,9 @@ public class AcceptService {
     @Transactional
     public void update_finish(Accept accept) {
         accept.update_finish();
+    }
+
+    public List<Accept> findByMember(Member member) {
+        return acceptRepository.findByMemberOrderByCreateDateDesc(member);
     }
 }
