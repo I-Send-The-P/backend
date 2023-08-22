@@ -46,5 +46,16 @@ public class AnswerService {
         return answerRepository.findAll();
     }
 
+    public Answer findByQuestionId(Long questionId) {
+        log.info("질문 아이디로 답변 조회");
+        Answer findAnswer = answerRepository.findByQuestionId(questionId);
+        if(findAnswer == null) {
+            log.info("답변이 존재하지 않음");
+        }else {
+            log.info("답변 조회 성공");
+        }
+        return findAnswer;
+    }
+
 
 }
