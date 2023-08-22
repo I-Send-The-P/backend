@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -44,7 +45,7 @@ public class RequestController {
     }
 
     @PostMapping("/blood")// 게시글 올리기
-    public Long bloodRequest(@RequestBody RequestRe request) {
+    public Long bloodRequest(@Validated @RequestBody RequestRe request) {
         Member member = memberService.findById(1L);
 
         Request savedRequest = new Request(member, request.getSickness(), request.getTitle(), request.getContent(),
