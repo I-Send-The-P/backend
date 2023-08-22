@@ -2,7 +2,7 @@ package ISTP.controller;
 
 import ISTP.Dtos.request.RequestDto;
 import ISTP.Dtos.request.RequestListDto;
-import ISTP.Dtos.request.Requestrequest;
+import ISTP.Dtos.request.RequestRe;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
@@ -45,7 +45,7 @@ public class RequestController {
     }
 
     @PostMapping("/blood")// 게시글 올리기
-    public Long bloodRequest(@RequestBody Requestrequest request) {
+    public Long bloodRequest(@RequestBody RequestRe request) {
         Member member = memberService.findById(1L);
 
         Request savedRequest = new Request(member, request.getSickness(), request.getTitle(), request.getContent(),

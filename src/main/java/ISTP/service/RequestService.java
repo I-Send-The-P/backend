@@ -1,6 +1,8 @@
 package ISTP.service;
 
+import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
+import ISTP.domain.member.Member;
 import ISTP.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.message.ReusableMessage;
@@ -60,4 +62,15 @@ public class RequestService {
     public Request findByOneId(Long requestId) {
         return requestRepository.findOneById(requestId);
     }
+
+    // 멤버가 작성한 요청을 제외한 혈액형 타입으로 요청 리스트 찾는 메서드
+    public List<Request> findAllByBloodTypeExcludingMemberRequests(BloodType bloodType, Member member) {
+        return requestRepository.findAllByBloodTypeAndMemberNot(bloodType, member);
+    }
+
+    //멤버가 작성한 요청 리스트 찾는 메서드
+    public List<Request> findAllByMemberNickname(String nickname) {
+        return requestRepository.findAllByMemberNickname(nickname);
+    }
+
 }
