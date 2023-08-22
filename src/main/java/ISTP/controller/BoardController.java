@@ -1,10 +1,10 @@
 package ISTP.controller;
 
 
-import ISTP.Dtos.board.BoardDto;
-import ISTP.Dtos.board.BoardEditForm;
-import ISTP.Dtos.board.BoardSaveForm;
-import ISTP.Dtos.board.BoardSummaryDto;
+import ISTP.dtos.board.BoardDto;
+import ISTP.dtos.board.BoardEditForm;
+import ISTP.dtos.board.BoardSaveForm;
+import ISTP.dtos.board.BoardSummaryDto;
 import ISTP.domain.board.Board;
 import ISTP.domain.member.Member;
 import ISTP.service.BoardService;

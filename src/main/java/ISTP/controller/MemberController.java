@@ -1,6 +1,6 @@
 package ISTP.controller;
 
-import ISTP.Dtos.member.MemberSaveForm;
+import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.dtos.member.MemberMyPageDto;
 import ISTP.domain.bloodDonation.request.Request;
