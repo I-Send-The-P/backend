@@ -1,22 +1,20 @@
-package ISTP.Dtos;
+package ISTP.Dtos.request;
 
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-public class RequestDto {
+public class RequestListDto {
     private BloodType blood_type;
     private String title;
     private RequestStatus status;
     private LocalDateTime createdTime;
 
-    public RequestDto(Request request) {
+    public RequestListDto(Request request) {
         this.blood_type = request.getBloodType();
         this.title = request.getTitle();
         this.status = request.getStatus();

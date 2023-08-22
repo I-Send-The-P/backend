@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,7 +32,7 @@ class RequestServiceTest {
 
         memberService.save(member);
 
-        Request request = new Request(member, "질병", "제목","내용", LocalDate.now().plusDays(3),
+        Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
                 "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
                 "가족", "혈소판 헌혈");
 
@@ -44,7 +45,7 @@ class RequestServiceTest {
     public void update_status() {
         Member member = new Member("abc", "aaa");
 
-        Request request = new Request(member, "질병", "제목", "내용", LocalDate.now().plusDays(3),
+        Request request = new Request(member, "질병", "제목", "내용", LocalDateTime.now().plusDays(3),
                 "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
                 "가족", "혈소판 헌혈");
 
@@ -57,7 +58,7 @@ class RequestServiceTest {
     public void delete_request() {
         Member member = new Member("abc", "aaa");
 
-        Request request = new Request(member, "질병", "제목","내용", LocalDate.now().plusDays(3),
+        Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
                 "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
                 "가족", "혈소판 헌혈");
 
