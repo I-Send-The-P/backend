@@ -1,6 +1,7 @@
 package ISTP.controller;
 
-import ISTP.dtos.RequestDto;
+import ISTP.Dtos.request.MyRequestDto;
+import ISTP.Dtos.request.RequestDto;
 import ISTP.dtos.member.MemberMyPageDto;
 import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.request.Request;
@@ -109,12 +110,12 @@ public class MemberController {
     //내가 등록한 긴급헌혈 요청서 목록
     @ResponseBody
     @GetMapping("/maPages/{memberId}/myRequests")
-    public List<RequestDto> myRequestList(@PathVariable Long memberId) {
+    public List<MyRequestDto> myRequestList(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
         List<Request> allByMemberNickname = requestService.findAllByMemberNickname(member.getNickname());
-        List<RequestDto> requestDtos = new ArrayList<>();
+        List<MyRequestDto> requestDtos = new ArrayList<>();
         for (Request request : allByMemberNickname) {
-            RequestDto requestDto = new RequestDto(request);
+            MyRequestDto requestDto = new MyRequestDto(request);
             requestDtos.add(requestDto);
         }
         return requestDtos;
