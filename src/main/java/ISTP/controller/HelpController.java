@@ -69,7 +69,4 @@ public class HelpController {
         questionService.updateQuestion(question, form.getTitle(), form.getContent(), form.getInquiryType());
         return question.getId();
     }
-
-
-
 }

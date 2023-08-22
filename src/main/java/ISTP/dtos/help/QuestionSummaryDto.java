@@ -14,6 +14,7 @@ public class QuestionSummaryDto {
 
     private String title;
     private LocalDateTime createdTime;
+    private LocalDateTime lastModifiedDate;
     private InquiryType inquiryType;
     private InquiryStatus inquiryStatus;
     private String nickname;
@@ -22,6 +23,7 @@ public class QuestionSummaryDto {
         this.title = question.getTitle();
         this.createdTime = question.getCreateDate();
         this.inquiryType = question.getInquiryType();
+        this.lastModifiedDate = question.getLastModifiedDate();
         this.inquiryStatus = question.getStatus();
         this.nickname = question.getMember().getNickname();
     }

@@ -18,4 +18,5 @@ public class QuestionEditForm {
     private String content;
     @NotNull
     private InquiryType inquiryType;
+
 }

@@ -41,11 +41,6 @@ public class QuestionService {
     }
 
     @Transactional
-    public void changeStatus(Question question) {
-        log.info("답변을 받아 문의상태를 문의중에서 문의완료로 변경");
-        question.changeStatus();
-    }
-    @Transactional
     public void updateQuestion(Question question, String updateTitle, String updateContent, InquiryType updateInquiryType) {
         if(question.getStatus().equals(InquiryStatus.문의완료)) {
             log.info("이미 문의완료 상태이기에 수정할 수 없음");

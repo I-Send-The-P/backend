@@ -1,9 +1,7 @@
 package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodType;
-import ISTP.domain.board.Board;
-import ISTP.domain.board.BoardType;
-import ISTP.domain.help.question.InquiryStatus;
+import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Gender;
@@ -17,12 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class QuestionServiceTest {
+class AnswerServiceTest {
 
+    @Autowired
+    AnswerService answerService;
     @Autowired
     QuestionService questionService;
     @Autowired
@@ -50,44 +49,18 @@ class QuestionServiceTest {
             }
             questionService.save(question);
         }
+        Question question1 = questionService.findById(1L);
+        Answer answer1 = answerService.createAnswer("answer1", member1, question1);
+        answerService.save(answer1);
+
+        Question question2 = questionService.findById(2L);
+        Answer answer2 = answerService.createAnswer("answer2", member2, question2);
+        answerService.save(answer2);
     }
 
     @Test
-    public void findById() {
-        Question question = new Question("abc", "abc", InquiryType.계정문의, null);
-        questionService.save(question);
-        Question findQuestion = questionService.findById(question.getId());
-        assertThat(findQuestion).isEqualTo(question);
+    void findAll() {
+        List<Answer> all = answerService.findAll();
+        assertThat(all.size()).isEqualTo(2);
     }
-
-    @Test
-    public void findByIdError() {
-        assertThrows(IllegalArgumentException.class, () -> questionService.findById(14L));
-    }
-
-    @Test
-    public void findAll() {
-        List<Question> all = questionService.findAll();
-        assertThat(all.size()).isEqualTo(12);
-    }
-
-    @Test
-    public void updateQuestion() {
-        Question question = new Question("abc", "abc", InquiryType.계정문의, null);
-        questionService.save(question);
-        questionService.updateQuestion(question, "updateTitle", "updateContent", InquiryType.프로그램문의);
-        assertThat(question.getTitle()).isEqualTo("updateTitle");
-        assertThat(question.getContent()).isEqualTo("updateContent");
-        assertThat(question.getInquiryType()).isEqualTo(InquiryType.프로그램문의);
-    }
-
-    @Test
-    public void deleteQuestion() {
-        Question question = new Question("abc", "abc", InquiryType.계정문의, null);
-        questionService.save(question);
-        questionService.deleteQuestion(question);
-
-        assertThrows(IllegalArgumentException.class, () -> questionService.findById(question.getId()));
-    }
-
 }

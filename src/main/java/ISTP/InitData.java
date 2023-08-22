@@ -5,14 +5,17 @@ import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
+import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
+import ISTP.service.AnswerService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,19 +27,22 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class InitData {
 
-    private final InitService initMemberService;
+    private final InitService initService;
 
 
     @PostConstruct
     public void init() {
-        initMemberService.init();
+        initService.init();
     }
     @Component
+    @RequiredArgsConstructor
     static class InitService {
 
         @PersistenceContext
         EntityManager em;
 
+        @Autowired
+        private final AnswerService answerService;
         @Transactional
         public void init() {
             Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시");
@@ -98,6 +104,13 @@ public class InitData {
                 }
                 em.persist(question);
             }
+            Question question1 = em.find(Question.class, 1L);
+            Answer answer1 = answerService.createAnswer("answer1", member1, question1);
+            answerService.save(answer1);
+
+            Question question2 = em.find(Question.class, 2L);
+            Answer answer2 = answerService.createAnswer("answer2", member2, question2);
+            answerService.save(answer2);
         }
     }
 
