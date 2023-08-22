@@ -3,11 +3,8 @@ package ISTP.Dtos.board;
 
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 

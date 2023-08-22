@@ -1,10 +1,13 @@
 package ISTP.controller;
 
 import ISTP.Dtos.member.MemberSaveForm;
-import ISTP.Dtos.request.MyRequestDto;
+import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.dtos.member.MemberMyPageDto;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
+import ISTP.dtos.request.MyAcceptDto;
+import ISTP.dtos.request.MyRequestDto;
+import ISTP.service.AcceptService;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final RequestService requestService;
+    private final AcceptService acceptService;
 
     //회원가입 로직
     @PostMapping("/save")
@@ -121,15 +125,17 @@ public class MemberController {
     }
 
     //내가 요청 수락을 한 긴급헌혈 요청서 목록
-    /**
-     *  요청 서비스 및 레포지토리 개발이 아직 안돼서 구현 x
-     */
-
-    /*@ResponseBody
+    @ResponseBody
     @GetMapping("/myPages/{memberId}/myAccepts")
-    public List<RequestDto> myAcceptRequestList(@PathVariable Long memberId) {
+    public List<MyAcceptDto> myAcceptRequestList(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
-
-    }*/
-
+        List<Accept> accepts = acceptService.findByMember(member);
+        List<MyAcceptDto> acceptDtos = new ArrayList<>();
+        for (Accept accept : accepts) {
+            Request request = accept.getRequest();
+            MyAcceptDto acceptDto = new MyAcceptDto(request);
+            acceptDtos.add(acceptDto);
+        }
+        return acceptDtos;
+    }
 }

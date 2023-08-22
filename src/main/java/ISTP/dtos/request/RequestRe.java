@@ -1,6 +1,10 @@
+<<<<<<< HEAD
+package ISTP.dtos.request;
+=======
 package ISTP.Dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+>>>>>>> 18c15564c97576bfee91bd74f8c79f1e0262e5b3
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

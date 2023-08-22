@@ -222,4 +222,17 @@ class MemberServiceTest {
         }
     }
 
+
+    @Test
+    public void findTop5ByDonationCount() {
+        int count = 10;
+        List<Member> all = memberService.findAll();
+        for (Member member : all) {
+            for(int i = 0; i <= count; i++) {
+                member.countPlus();
+            }
+        }
+        List<Member> top5ByDonationCount = memberService.findTop5ByCount();
+        assertThat(top5ByDonationCount.size()).isEqualTo(5);
+    }
 }

@@ -1,12 +1,12 @@
 package ISTP.controller;
 
-import ISTP.Dtos.request.RequestDto;
-import ISTP.Dtos.request.RequestListDto;
-import ISTP.Dtos.request.RequestRe;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
+import ISTP.dtos.request.RequestDto;
+import ISTP.dtos.request.RequestListDto;
+import ISTP.dtos.request.RequestRe;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -55,6 +54,7 @@ public class RequestController {
         // 혈액형 고정, 기간 몰라서 3일로 고정함
 
         Long savedId = requestService.save(savedRequest);
+
 
         return savedId;
     }

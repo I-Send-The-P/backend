@@ -157,7 +157,9 @@ public class MemberService {
         return member.getRequests();
     }
 
+    // 헌혈랭킹 top 5
+    public List<Member> findTop5ByCount() {
+       return memberRepository.findTop5ByCount();
+    }
 
-    // 특정 멤버가 요청 수락한 글 리스트 받아오기
-    // 이거는 accept 상태 구현이 되면 시작하겠습니다
 }
