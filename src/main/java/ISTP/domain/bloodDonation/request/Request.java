@@ -25,7 +25,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private String sickness;
     private String title;
     private String content; // 요청 사연
-    private LocalDate duration; // 마감 날짜
+    private LocalDateTime duration; // 마감 날짜
     private String number; //환자 등록 번호
     private String hospital;
     @Enumerated(STRING)
@@ -40,10 +40,10 @@ public class Request extends BaseEntity { // 헌혈 요청
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Request() {
+    protected Request() {
     }
 
-    public Request(Member member, String sickness, String title, String content, LocalDate duration, String number, String hospital,
+    public Request(Member member, String sickness, String title, String content, LocalDateTime duration, String number, String hospital,
                    RequestStatus status, BloodType bloodType, String relationship, String requests_blood_type) {
         this.member = member;
         this.sickness = sickness;

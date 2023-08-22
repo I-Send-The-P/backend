@@ -6,6 +6,8 @@ import ISTP.domain.member.Member;
 import ISTP.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.message.ReusableMessage;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,10 @@ public class RequestService {
         return requestRepository.findAll();
     }
 
+    public Page<Request> findByDESC(Pageable pageable) {
+        return requestRepository.findByDESC(pageable);
+    }
+
     @Transactional
     public void changeStatus(Request request) { // 신청에서 진행중으로 바꾸기
         request.update_status();
@@ -53,6 +59,9 @@ public class RequestService {
         requestRepository.deleteById(requestId);
     }
 
+    public Request findByOneId(Long requestId) {
+        return requestRepository.findOneById(requestId);
+    }
 
     // 멤버가 작성한 요청을 제외한 혈액형 타입으로 요청 리스트 찾는 메서드
     public List<Request> findAllByBloodTypeExcludingMemberRequests(BloodType bloodType, Member member) {

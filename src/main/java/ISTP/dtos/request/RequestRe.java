@@ -1,4 +1,4 @@
-package ISTP.dtos;
+package ISTP.Dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Requestrequest {
+public class RequestRe {
 
     private String sickness;
     private String title;
