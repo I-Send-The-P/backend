@@ -36,14 +36,11 @@ public class InitData {
         initService.init();
     }
     @Component
-    @RequiredArgsConstructor
     static class InitService {
 
         @PersistenceContext
         EntityManager em;
 
-        @Autowired
-        private final AnswerService answerService;
         @Transactional
         public void init() {
             Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시");
@@ -93,6 +90,16 @@ public class InitData {
                 Question question;
                 if(i <= 3) {
                     question = new Question("title" + i, "content" + i, InquiryType.계정문의, member1);
+                    if(i == 1) {
+                        question.changeStatus();
+                        Answer answer1 = new Answer("answer1", member1, question);
+                        em.persist(answer1);
+                    }
+                    if(i == 2) {
+                        question.changeStatus();
+                        Answer answer2 = new Answer("answer2", member2, question);
+                        em.persist(answer2);
+                    }
                 }
                 else if(i <= 6) {
                     question = new Question("title" + i, "content" + i, InquiryType.건의사항, member2);
@@ -105,13 +112,7 @@ public class InitData {
                 }
                 em.persist(question);
             }
-            Question question1 = em.find(Question.class, 1L);
-            Answer answer1 = answerService.createAnswer("answer1", member1, question1);
-            answerService.save(answer1);
 
-            Question question2 = em.find(Question.class, 2L);
-            Answer answer2 = answerService.createAnswer("answer2", member2, question2);
-            answerService.save(answer2);
         }
     }
 

@@ -29,10 +29,10 @@ public class HelpController {
 
     //1:1 문의 글 작성
     /**
-     * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯~~ 우선은 그냥 파라미터로 멤버아이디 하나 임의로 받겠습니다
+     * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯~~
      */
-    @PostMapping("/create")
-    public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult, @RequestParam Long memberId) {
+    @PostMapping("/{memberId}/create")
+    public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult, @PathVariable Long memberId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             //에러처리 어케 할까여
@@ -46,9 +46,9 @@ public class HelpController {
 
     //1:1 문의내역 리스트
     @ResponseBody
-    @GetMapping("/list")
-    public List<QuestionSummaryDto> questionList() {
-        List<Question> questions = questionService.findAll();
+    @GetMapping("/{memberId}/list")
+    public List<QuestionSummaryDto> questionList(@PathVariable Long memberId) {
+        List<Question> questions = questionService.findAll(memberId);
         List<QuestionSummaryDto> questionSummaryDtos = new ArrayList<>();
         for(Question question : questions) {
             QuestionSummaryDto questionSummaryDto = new QuestionSummaryDto(question);
@@ -69,4 +69,10 @@ public class HelpController {
         questionService.updateQuestion(question, form.getTitle(), form.getContent(), form.getInquiryType());
         return question.getId();
     }
+
+    //답변 작성하는 페이지
+    /**
+     * 관리자만 들어갈 수 있게 따로 세션처리 해야함
+     */
+    //@PostMapping("")
 }

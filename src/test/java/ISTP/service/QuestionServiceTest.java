@@ -66,12 +66,6 @@ class QuestionServiceTest {
     }
 
     @Test
-    public void findAll() {
-        List<Question> all = questionService.findAll();
-        assertThat(all.size()).isEqualTo(12);
-    }
-
-    @Test
     public void updateQuestion() {
         Question question = new Question("abc", "abc", InquiryType.계정문의, null);
         questionService.save(question);
