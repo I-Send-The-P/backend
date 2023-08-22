@@ -1,7 +1,9 @@
 package ISTP.controller;
 
+import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Member;
+import ISTP.dtos.help.HelpDto;
 import ISTP.dtos.help.QuestionEditForm;
 import ISTP.dtos.help.QuestionSaveForm;
 import ISTP.dtos.help.QuestionSummaryDto;
@@ -29,10 +31,10 @@ public class HelpController {
 
     //1:1 문의 글 작성
     /**
-     * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯~~ 우선은 그냥 파라미터로 멤버아이디 하나 임의로 받겠습니다
+     * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯
      */
-    @PostMapping("/create")
-    public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult, @RequestParam Long memberId) {
+    @PostMapping("/{memberId}/create")
+    public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult, @PathVariable Long memberId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             //에러처리 어케 할까여
@@ -46,9 +48,9 @@ public class HelpController {
 
     //1:1 문의내역 리스트
     @ResponseBody
-    @GetMapping("/list")
-    public List<QuestionSummaryDto> questionList() {
-        List<Question> questions = questionService.findAll();
+    @GetMapping("/{memberId}/list")
+    public List<QuestionSummaryDto> questionList(@PathVariable Long memberId) {
+        List<Question> questions = questionService.findAll(memberId);
         List<QuestionSummaryDto> questionSummaryDtos = new ArrayList<>();
         for(Question question : questions) {
             QuestionSummaryDto questionSummaryDto = new QuestionSummaryDto(question);
@@ -58,8 +60,8 @@ public class HelpController {
     }
 
     //문의 완료가 되지 않은 상태에서 1:1 문의글 수정하기
-    @PostMapping("/{questionId}/edit")
-    public Long editQuestion(@Validated @RequestBody QuestionEditForm form, BindingResult bindingResult, @PathVariable Long questionId) {
+    @PostMapping("/{memberId}/list/{questionId}/edit")
+    public Long editQuestion(@Validated @RequestBody QuestionEditForm form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             //에러처리 어케 할까여
@@ -71,5 +73,20 @@ public class HelpController {
     }
 
 
+    //상세 문의내역
+    @ResponseBody
+    @GetMapping("/{memberId}/list/{questionId}/detail")
+    public HelpDto help(@PathVariable Long memberId, @PathVariable Long questionId) {
+        Question question = questionService.findById(questionId);
+        Answer answer = answerService.findByQuestionId(questionId);
+        HelpDto helpDto = new HelpDto(question, answer);
+        return helpDto;
+    }
+
+    //1:1문의내역 답변 달기
+    /*@PostMapping("/{memberId}/list/{questionId}/answer")
+    public Long answerSave(@Validated @RequestBody AnswerSaveFrom form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
+
+    }*/
 
 }

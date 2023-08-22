@@ -35,16 +35,11 @@ public class QuestionService {
         return findQuestion;
     }
 
-    public List<Question> findAll() {
+    public List<Question> findAll(Long memberId) {
         log.info("모든 문의 조회 나중에 작성된 시간 순으로 조회");
-        return questionRepository.findAllByOrderByCreateDateDesc();
+        return questionRepository.findAllByMemberIdOrderByCreateDateDesc(memberId);
     }
 
-    @Transactional
-    public void changeStatus(Question question) {
-        log.info("답변을 받아 문의상태를 문의중에서 문의완료로 변경");
-        question.changeStatus();
-    }
     @Transactional
     public void updateQuestion(Question question, String updateTitle, String updateContent, InquiryType updateInquiryType) {
         if(question.getStatus().equals(InquiryStatus.문의완료)) {

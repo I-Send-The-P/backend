@@ -5,14 +5,17 @@ import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
+import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
+import ISTP.service.AnswerService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,12 +28,12 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class InitData {
 
-    private final InitService initMemberService;
+    private final InitService initService;
 
 
     @PostConstruct
     public void init() {
-        initMemberService.init();
+        initService.init();
     }
     @Component
     static class InitService {
@@ -87,6 +90,16 @@ public class InitData {
                 Question question;
                 if(i <= 3) {
                     question = new Question("title" + i, "content" + i, InquiryType.계정문의, member1);
+                    if(i == 1) {
+                        question.changeStatus();
+                        Answer answer1 = new Answer("answer1", member1, question);
+                        em.persist(answer1);
+                    }
+                    if(i == 2) {
+                        question.changeStatus();
+                        Answer answer2 = new Answer("answer2", member2, question);
+                        em.persist(answer2);
+                    }
                 }
                 else if(i <= 6) {
                     question = new Question("title" + i, "content" + i, InquiryType.건의사항, member2);
@@ -99,6 +112,7 @@ public class InitData {
                 }
                 em.persist(question);
             }
+
         }
     }
 

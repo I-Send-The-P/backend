@@ -125,7 +125,6 @@ public class Member extends BaseEntity { // 사용자
 
     public void addAnswer(Answer answer) {
         answers.add(answer);
-        answer.changeAnswer(this);
     }
 
     public void addBoard(Board board) {
