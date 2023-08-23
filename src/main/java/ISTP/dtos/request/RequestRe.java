@@ -25,4 +25,5 @@ public class RequestRe {
     private String relationship;
     @NotBlank
     private String requests_blood_type;
+    private String address;
 }

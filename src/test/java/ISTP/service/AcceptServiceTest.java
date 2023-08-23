@@ -35,7 +35,7 @@ public class AcceptServiceTest {
 
         Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
                 "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
-                "가족", "혈소판 헌혈");
+                "가족", "혈소판 헌혈", "인천");
 
         requestService.save(request);
 
@@ -55,7 +55,7 @@ public class AcceptServiceTest {
 
         Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
                 "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
-                "가족", "혈소판 헌혈");
+                "가족", "혈소판 헌혈", "인천");
 
         requestService.save(request);
 

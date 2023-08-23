@@ -15,10 +15,11 @@ public class AlarmController {
     private final MemberService memberService;
     private final RequestService requestService;
 
-  /*  @ResponseBody
+    /*@ResponseBody
     @GetMapping("/{memberId}")
     public Map<String, Object> myAlarmList(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
+        boolean alarm = member.isAlarm();
         AlarmStatus alarmStatus = member.getAlarmStatus();
         List<Request> allByBloodType = requestService.findAllByBloodTypeExcludingMemberRequests(member.getMyBloodType(), member);
         List<AlarmSummaryDto> alarmDtoList = new ArrayList<>();
@@ -32,9 +33,12 @@ public class AlarmController {
         result.put("alarmList", alarmDtoList);
         return result;
     }
-*/
-   /* //호출 될 때마다 알람 온 오프로 되는 기능
     @PostMapping("/{memberId}/setting")
+    public Boolean myAlarmSetting(@PathVariable Long memberId) {
+        Member member = memberService.findById(memberId);
+        memberService.changeAlarm(member);
+        return member.isAlarm();
+    }
     public AlarmStatus myAlarmSetting(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
         memberService.changeAlarm(member);

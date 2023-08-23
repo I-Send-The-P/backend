@@ -1,5 +1,6 @@
 package ISTP.controller;
 
+import ISTP.dtos.bloodCenter.BloodCenterDTO;
 import ISTP.dtos.request.RequestRe;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
@@ -7,12 +8,10 @@ import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
 import ISTP.dtos.request.RequestDto;
 import ISTP.dtos.request.RequestListDto;
-import ISTP.dtos.request.RequestRe;
 import ISTP.service.AlarmService;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,6 +28,7 @@ public class RequestController {
 
     private final RequestService requestService;
     private final MemberService memberService;
+    //private final BloodCenterService bloodService;
     private final AlarmService alarmService;
 
     @GetMapping("/list") // 게시글 리스트
@@ -54,10 +54,23 @@ public class RequestController {
         Member member = memberService.findById(1L);
         Request savedRequest = new Request(member, request.getSickness(), request.getTitle(), request.getContent(),
                 LocalDateTime.now().plusDays(3), request.getNumber(), request.getHospital(), RequestStatus.신청,
-                BloodType.A_PLUS, request.getRelationship(), request.getRequests_blood_type());
+                BloodType.A_PLUS, request.getRelationship(), request.getRequests_blood_type(), request.getAddress());
         // 혈액형 고정, 기간 몰라서 3일로 고정함
 
         Long savedId = requestService.save(savedRequest);
+
+        if(savedRequest.getAddress().equals("전체")) { // 전체 선택하면 전체의 사람들한테 보내짐
+            List<Member> allByMemberBloodType = requestService.findAllByMemberBloodType(savedRequest.getBloodType());
+            for (Member m : allByMemberBloodType) {
+                System.out.println("전체 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
+            }
+        }
+        else { // 전체가 아니라 서울, 인천 이렇게 입력하면 해당 지역에 사는 사람만 알림 가기
+            List<Member> regionByMemberBloodType = requestService.findRegionByMemberBloodType(savedRequest.getAddress(), savedRequest.getBloodType());
+            for (Member m : regionByMemberBloodType) {
+                System.out.println("지역만 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
+            }
+        }
 
         //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?
         //=========규혁 추가==========
@@ -87,6 +100,11 @@ public class RequestController {
     public void delete_request(@PathVariable Long requestId) {
         requestService.delete(requestId);
     }
+
+    /*@GetMapping("api")
+    public List<BloodCenterDTO> api() throws Exception{
+        return bloodService.API();
+    }*/
 }
 
 

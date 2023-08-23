@@ -193,11 +193,14 @@ class MemberServiceTest {
     public void changeAlarm() {
         Member member1 = new Member("loginId1", "password1", "nickname1", "인천시");
         memberService.save(member1);
-        assertThat(member1.isAlarmStatus()).isTrue();
+        assertThat(member1.isAlarm()).isEqualTo(true);
         memberService.changeAlarm(member1);
-        assertThat(member1.isAlarmStatus()).isFalse();
+        assertThat(member1.isAlarm()).isEqualTo(false);
         memberService.changeAlarm(member1);
-        assertThat(member1.isAlarmStatus()).isTrue();
+        assertThat(member1.isAlarm()).isEqualTo(true);
+        assertThat(member1.isAlarm()).isTrue();
+        memberService.changeAlarm(member1);
+        memberService.changeAlarm(member1);
     }
 
     @Test
