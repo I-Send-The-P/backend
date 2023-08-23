@@ -62,7 +62,7 @@ public class AlarmService {
         return requests;
     }
 
-    //알람 페이지에서 누르면 isRead-> true 로 변경
+    //알람 페이지에서 누르면 isRead-> true 로 변경d
 
 
 }
