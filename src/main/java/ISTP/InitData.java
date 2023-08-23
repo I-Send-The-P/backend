@@ -6,22 +6,22 @@ import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
 import ISTP.domain.help.Answer;
-import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
+import ISTP.domain.help.question.QuestionType;
+import ISTP.domain.help.question.QuestionTypeName;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
-import ISTP.service.AnswerService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import static ISTP.domain.help.question.QuestionTypeName.*;
 
 @Profile("local")
 @Component
@@ -53,7 +53,7 @@ public class InitData {
             Member member8 = new Member("loginId8", "password8", "test8", "별명8", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "인천시", true);
             Member member9 = new Member("loginId9", "password9", "test9", "별명9", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시", true);
             Member member10 = new Member("loginId10", "password10", "test10", "별명10", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "인천시", true);
-
+            member1.changeAlarm();
             em.persist(member1);em.persist(member2);em.persist(member3);em.persist(member4);em.persist(member5);
             em.persist(member6);em.persist(member7);em.persist(member8);em.persist(member9);em.persist(member10);
 
@@ -99,7 +99,8 @@ public class InitData {
             for(int i = 1; i <= 12; i++) {
                 Question question;
                 if(i <= 3) {
-                    question = new Question("title" + i, "content" + i, InquiryType.계정문의, member1);
+                    QuestionType questionType = new QuestionType(ACCOUNT);
+                    question = new Question("title" + i, "content" + i, questionType, member1);
                     if(i == 1) {
                         question.changeStatus();
                         Answer answer1 = new Answer("answer1", member1, question);
@@ -112,13 +113,16 @@ public class InitData {
                     }
                 }
                 else if(i <= 6) {
-                    question = new Question("title" + i, "content" + i, InquiryType.건의사항, member2);
+                    QuestionType questionType = new QuestionType(SUGGESTION);
+                    question = new Question("title" + i, "content" + i, questionType, member2);
                 }
                 else if(i <= 9) {
-                    question = new Question("title" + i, "content" + i, InquiryType.프로그램문의, member1);
+                    QuestionType questionType = new QuestionType(PROGRAM);
+                    question = new Question("title" + i, "content" + i, questionType, member1);
                 }
                 else {
-                    question = new Question("title" + i, "content" + i, InquiryType.기타, member2);
+                    QuestionType questionType = new QuestionType(ETC);
+                    question = new Question("title" + i, "content" + i, questionType, member2);
                 }
                 em.persist(question);
             }

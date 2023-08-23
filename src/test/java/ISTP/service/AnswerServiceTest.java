@@ -2,8 +2,9 @@ package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.help.Answer;
-import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
+import ISTP.domain.help.question.QuestionType;
+import ISTP.domain.help.question.QuestionTypeName;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static ISTP.domain.help.question.QuestionTypeName.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -36,16 +38,20 @@ class AnswerServiceTest {
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
-                question = new Question("title" + i, "content" + i, InquiryType.계정문의, member1);
+                QuestionType questionType = new QuestionType(ACCOUNT);
+                question = new Question("title" + i, "content" + i, questionType, member1);
             }
             else if(i <= 6) {
-                question = new Question("title" + i, "content" + i, InquiryType.건의사항, member2);
+                QuestionType questionType = new QuestionType(SUGGESTION);
+                question = new Question("title" + i, "content" + i, questionType, member2);
             }
             else if(i <= 9) {
-                question = new Question("title" + i, "content" + i, InquiryType.프로그램문의, member1);
+                QuestionType questionType = new QuestionType(PROGRAM);
+                question = new Question("title" + i, "content" + i, questionType, member1);
             }
             else {
-                question = new Question("title" + i, "content" + i, InquiryType.기타, member2);
+                QuestionType questionType = new QuestionType(ETC);
+                question = new Question("title" + i, "content" + i, questionType, member2);
             }
             questionService.save(question);
         }

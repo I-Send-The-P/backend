@@ -1,10 +1,18 @@
 package ISTP.controller;
 
+import ISTP.domain.member.Member;
+import ISTP.dtos.alarm.AcceptAndIsReadDto;
+import ISTP.dtos.alarm.AlarmSummaryDto;
+import ISTP.service.AlarmService;
 import ISTP.service.MemberService;
-import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,18 +21,18 @@ import org.springframework.web.bind.annotation.*;
 public class AlarmController {
 
     private final MemberService memberService;
-    private final RequestService requestService;
+    private final AlarmService alarmService;
 
-    /*@ResponseBody
+    @ResponseBody
     @GetMapping("/{memberId}")
     public Map<String, Object> myAlarmList(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
-        boolean alarm = member.isAlarm();
-        AlarmStatus alarmStatus = member.getAlarmStatus();
-        List<Request> allByBloodType = requestService.findAllByBloodTypeExcludingMemberRequests(member.getMyBloodType(), member);
+        boolean alarmStatus = member.isAlarmStatus(); //알람 수신 상태
+
+        List<AcceptAndIsReadDto> allAccept = alarmService.findAllAccept(memberId);
         List<AlarmSummaryDto> alarmDtoList = new ArrayList<>();
-        for (Request request : allByBloodType) {
-            AlarmSummaryDto alarmDto = new AlarmSummaryDto(request);
+        for (AcceptAndIsReadDto acceptAndIsReadDto : allAccept) {
+            AlarmSummaryDto alarmDto = new AlarmSummaryDto(acceptAndIsReadDto);
             alarmDtoList.add(alarmDto);
         }
 
@@ -33,15 +41,20 @@ public class AlarmController {
         result.put("alarmList", alarmDtoList);
         return result;
     }
+
+    //알람설졍 변경
     @PostMapping("/{memberId}/setting")
     public Boolean myAlarmSetting(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
         memberService.changeAlarm(member);
-        return member.isAlarm();
+        return member.isAlarmStatus();
     }
-    public AlarmStatus myAlarmSetting(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
-        memberService.changeAlarm(member);
-        return member.getAlarmStatus();
-    }*/
+
+    //알람 확인하면 상태 변경
+    @PostMapping("/{memberId}/check/{memberAlarmId}")
+    public Long isRead(@PathVariable Long memberId, @PathVariable Long memberAlarmId) {
+        return alarmService.isRead(memberAlarmId);
+    }
+
+
 }

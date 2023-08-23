@@ -2,11 +2,10 @@ package ISTP.dtos.help;
 
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.InquiryStatus;
-import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
+import ISTP.domain.help.question.QuestionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +17,7 @@ public class HelpDto {
     private String questionContent;
     private LocalDateTime questionCreatedTime;
     private LocalDateTime questionLastModifiedDate;
-    private InquiryType inquiryType;
+    private QuestionType questionType;
     private InquiryStatus inquiryStatus;
     private LocalDateTime answerCreatedTime;
     private LocalDateTime answerLastModifiedDate;
@@ -29,7 +28,7 @@ public class HelpDto {
         this.questionContent = question.getContent();
         this.questionCreatedTime = question.getCreateDate();
         this.questionLastModifiedDate = question.getLastModifiedDate();
-        this.inquiryType = question.getInquiryType();
+        this.questionType = question.getQuestionType();
         this.inquiryStatus = question.getStatus();
         this.answerContent = answer.getContent();
         this.answerCreatedTime = answer.getCreateDate();

@@ -17,7 +17,7 @@ import static jakarta.persistence.EnumType.*;
 
 @Entity
 @Getter
-@ToString(of = {"id", "title", "content", "inquiryType", "status"})
+@ToString(of = {"id", "title", "content", "questionType", "status"})
 @NoArgsConstructor
 public class Question extends BaseEntity { // 문의사항
 
@@ -33,25 +33,24 @@ public class Question extends BaseEntity { // 문의사항
     @Column(name = "inquiry_status")
     private InquiryStatus status; //문의 상태
 
-    @Enumerated(STRING)
-    private InquiryType inquiryType; //문의 유형
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_type_id")
+    private QuestionType questionType;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-
-    public Question(String title, String content, InquiryType inquiryType, Member member) {
+    public Question(String title, String content, QuestionType questionType, Member member) {
         this.title = title;
         this.content = content;
         this.status = InquiryStatus.문의중;
-        this.inquiryType = inquiryType;
+        this.questionType = questionType;
         if(member != null) {
             changeQuestion(member);
         }
     }
-
-
 
     //==연관관계 메서드==//
     public void changeQuestion(Member member) {
@@ -59,6 +58,10 @@ public class Question extends BaseEntity { // 문의사항
         member.addQuestion(this); //연관 관계설정
     }
 
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+        questionType.setQuestion(this);
+    }
     //답변을 받으면 문의중 -> 문의 상태로 바꾸는 메서드
     public void changeStatus() {
         this.status = InquiryStatus.문의완료;
@@ -66,9 +69,9 @@ public class Question extends BaseEntity { // 문의사항
 
 
     //문의글 수정하여 업데이트하는 메서드
-    public void updateQuestion(String title, String content, InquiryType inquiryType) {
+    public void updateQuestion(String title, String content, QuestionType questionType) {
         this.title = title;
         this.content = content;
-        this.inquiryType = inquiryType;
+        this.questionType = questionType;
     }
 }
