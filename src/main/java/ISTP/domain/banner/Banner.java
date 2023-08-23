@@ -15,5 +15,4 @@ public class Banner {
     private Long id;
 
     private String imgUrl;
-    // 사진이면 url넘기고, 랭킹이면 어떡하지?
 }

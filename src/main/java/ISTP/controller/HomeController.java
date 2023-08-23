@@ -1,7 +1,6 @@
 package ISTP.controller;
 
 import ISTP.domain.member.Member;
-import ISTP.dtos.member.MemberMyPageDto;
 import ISTP.dtos.member.MemberRankingDto;
 import ISTP.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +27,10 @@ public class HomeController {
             memberRankingDtos.add(memberRankingDto);
         }
         return memberRankingDtos;
+    }
+
+    @GetMapping("banner")
+    public String banner() {
+        return "https://istp.s3.ap-northeast-2.amazonaws.com/1.jfif";
     }
 }

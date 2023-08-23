@@ -1,6 +1,5 @@
 package ISTP.controller;
 
-import ISTP.dtos.bloodCenter.BloodCenterDTO;
 import ISTP.dtos.request.RequestRe;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
@@ -19,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -101,9 +99,9 @@ public class RequestController {
         requestService.delete(requestId);
     }
 
-    /*@GetMapping("api")
-    public List<BloodCenterDTO> api() throws Exception{
-        return bloodService.API();
+   /* @GetMapping("api")
+    public List<BloodCenterDTO> api(@RequestParam String region) throws Exception {
+        return bloodService.API(region);
     }*/
 }
 

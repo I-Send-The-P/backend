@@ -67,6 +67,8 @@ public class AlarmService {
         return alarm.getId();
     }
 
+<<<<<<< HEAD
+=======
 
     //한 멤버가 지금까지 받은 알람 요청서 조회
     public List<AcceptAndIsReadDto> findAllAccept(Long memberId) {
@@ -95,5 +97,6 @@ public class AlarmService {
     }
 
 
+>>>>>>> 07ac0d9b7f7a038fec1c7ac6d46c228d55a944de
 }
 
