@@ -30,4 +30,8 @@ public class HomeController {
         return memberRankingDtos;
     }
 
+    @GetMapping("banner")
+    public String banner() {
+        return "https://istp.s3.ap-northeast-2.amazonaws.com/1.jfif";
+    }
 }

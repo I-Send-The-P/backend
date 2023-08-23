@@ -105,7 +105,7 @@ public class RequestController {
     }
 
     @GetMapping("api")
-    public List<BloodCenterDTO> api() throws Exception{
-        return bloodService.API();
+    public List<BloodCenterDTO> api(@RequestParam String region) throws Exception {
+        return bloodService.API(region);
     }
 }
