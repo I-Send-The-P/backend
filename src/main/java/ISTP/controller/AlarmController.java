@@ -1,7 +1,9 @@
 package ISTP.controller;
 
+import ISTP.domain.MemberAlarm;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
+import ISTP.dtos.alarm.AcceptAndIsReadDto;
 import ISTP.dtos.alarm.AlarmSummaryDto;
 import ISTP.service.AlarmService;
 import ISTP.service.MemberService;
@@ -29,10 +31,10 @@ public class AlarmController {
         Member member = memberService.findById(memberId);
         boolean alarmStatus = member.isAlarmStatus(); //알람 수신 상태
 
-        List<Request> allAccept = alarmService.findAllAccept(memberId);
+        List<AcceptAndIsReadDto> allAccept = alarmService.findAllAccept(memberId);
         List<AlarmSummaryDto> alarmDtoList = new ArrayList<>();
-        for (Request request : allAccept) {
-            AlarmSummaryDto alarmDto = new AlarmSummaryDto(request);
+        for (AcceptAndIsReadDto acceptAndIsReadDto : allAccept) {
+            AlarmSummaryDto alarmDto = new AlarmSummaryDto(acceptAndIsReadDto);
             alarmDtoList.add(alarmDto);
         }
 
@@ -48,6 +50,12 @@ public class AlarmController {
         Member member = memberService.findById(memberId);
         memberService.changeAlarm(member);
         return member.isAlarmStatus();
+    }
+
+    //알람 확인하면 상태 변경
+    @PostMapping("/{memberId}/check/{memberAlarmId}")
+    public Long isRead(@PathVariable Long memberId, @PathVariable Long memberAlarmId) {
+        return alarmService.isRead(memberAlarmId);
     }
 
 

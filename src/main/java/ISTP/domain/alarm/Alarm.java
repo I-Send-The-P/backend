@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "content", "isRead", "requestId"})
 public class Alarm extends BaseEntity {
 
     @Id
@@ -28,7 +30,6 @@ public class Alarm extends BaseEntity {
     private Member requestMember;
 
     private String content;
-    private boolean isRead;
     private Long requestId;
 
     @OneToMany(mappedBy = "alarm")
@@ -39,10 +40,11 @@ public class Alarm extends BaseEntity {
         memberAlarms.add(memberAlarm);
     }
 
-    public Alarm(Member requestMember, String content, Long requestId, boolean isRead) {
+    public Alarm(Member requestMember, String content, Long requestId) {
         this.requestMember = requestMember;
         this.content = content;
         this.requestId = requestId;
-        this.isRead = isRead;
     }
+
+
 }

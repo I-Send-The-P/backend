@@ -25,9 +25,18 @@ public class MemberAlarm extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "alarm_id")
     private Alarm alarm;
+    private boolean isRead;
 
     public MemberAlarm(Member acceptMember, Alarm alarm) {
         this.acceptMember = acceptMember;
         this.alarm = alarm;
+        isRead = false;
+    }
+
+    //알람 읽으면 변경
+    public void changeIsRead() {
+        if(!(isRead)) {
+            isRead = true;
+        }
     }
 }

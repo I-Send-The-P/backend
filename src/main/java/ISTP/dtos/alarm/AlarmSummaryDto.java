@@ -16,11 +16,13 @@ public class AlarmSummaryDto {
     private String content;
     private RequestStatus status;
     private LocalDateTime createdTime;
+    private boolean isRead;
 
-    public AlarmSummaryDto(Request request) {
-        title = request.getTitle();
-        content = request.getContent();
-        status = request.getStatus();
-        createdTime = request.getCreateDate();
+    public AlarmSummaryDto(AcceptAndIsReadDto acceptAndIsReadDto) {
+        title = acceptAndIsReadDto.getRequest().getTitle();
+        content = acceptAndIsReadDto.getRequest().getContent();
+        status = acceptAndIsReadDto.getRequest().getStatus();
+        createdTime = acceptAndIsReadDto.getRequest().getCreateDate();
+        isRead = acceptAndIsReadDto.isRead();
     }
 }
