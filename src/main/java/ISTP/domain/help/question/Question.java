@@ -29,9 +29,8 @@ public class Question extends BaseEntity { // 문의사항
     private String title;
     private String content;
 
-    @Enumerated(STRING)
-    @Column(name = "inquiry_status")
-    private InquiryStatus status; //문의 상태
+    @Column(name = "answer_status")
+    private boolean answerStatus; // 답변 상태 false면 답변 못받은 상태, true이면 답변 받은 상태
 
     @Column(name = "question_type_id")
     private Long questionTypeId;
@@ -44,7 +43,7 @@ public class Question extends BaseEntity { // 문의사항
     public Question(String title, String content, QuestionType questionType, Member member) {
         this.title = title;
         this.content = content;
-        this.status = InquiryStatus.문의중;
+        this.answerStatus = false;
         this.questionTypeId = questionType.getId();
         if(member != null) {
             changeQuestion(member);
@@ -59,7 +58,7 @@ public class Question extends BaseEntity { // 문의사항
 
     //답변을 받으면 문의중 -> 문의 상태로 바꾸는 메서드
     public void changeStatus() {
-        this.status = InquiryStatus.문의완료;
+        this.answerStatus = true;
     }
 
 

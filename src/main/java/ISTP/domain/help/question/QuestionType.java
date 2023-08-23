@@ -1,6 +1,5 @@
 package ISTP.domain.help.question;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,10 +23,5 @@ public class QuestionType {
     public QuestionType(String questionType) {
         this.questionType = questionType;
     }
-
-    public void setQuestionType(String questionType) {
-        this.questionType = questionType;
-    }
-
 
 }

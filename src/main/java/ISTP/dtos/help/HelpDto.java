@@ -1,9 +1,7 @@
 package ISTP.dtos.help;
 
 import ISTP.domain.help.Answer;
-import ISTP.domain.help.question.InquiryStatus;
 import ISTP.domain.help.question.Question;
-import ISTP.domain.help.question.QuestionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +16,7 @@ public class HelpDto {
     private LocalDateTime questionCreatedTime;
     private LocalDateTime questionLastModifiedDate;
     private Long questionTypeId;
-    private InquiryStatus inquiryStatus;
+    private boolean answerStatus;
     private LocalDateTime answerCreatedTime;
     private LocalDateTime answerLastModifiedDate;
     private String answerContent;
@@ -29,7 +27,7 @@ public class HelpDto {
         this.questionCreatedTime = question.getCreateDate();
         this.questionLastModifiedDate = question.getLastModifiedDate();
         this.questionTypeId = question.getQuestionTypeId();
-        this.inquiryStatus = question.getStatus();
+        this.answerStatus = question.isAnswerStatus();
         this.answerContent = answer.getContent();
         this.answerCreatedTime = answer.getCreateDate();
         this.answerLastModifiedDate = answer.getLastModifiedDate();

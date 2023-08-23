@@ -1,7 +1,6 @@
 package ISTP.service;
 
 import ISTP.domain.help.Answer;
-import ISTP.domain.help.question.InquiryStatus;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.help.question.QuestionType;
 import ISTP.repository.AnswerRepository;
@@ -57,7 +56,7 @@ public class QuestionService {
 
     @Transactional
     public void updateQuestion(Question question, String updateTitle, String updateContent, QuestionType updateQuestionType) {
-        if(question.getStatus().equals(InquiryStatus.문의완료)) {
+        if(question.isAnswerStatus()) {
             log.info("이미 문의완료 상태이기에 수정할 수 없음");
             return;
         }
