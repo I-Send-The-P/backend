@@ -20,10 +20,6 @@ public class QuestionType {
     @Column(name = "question_type_name")
     private String questionType;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "questionType", fetch = FetchType.LAZY)
-    private Question question;
-
 
     public QuestionType(String questionType) {
         this.questionType = questionType;
@@ -33,7 +29,5 @@ public class QuestionType {
         this.questionType = questionType;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+
 }

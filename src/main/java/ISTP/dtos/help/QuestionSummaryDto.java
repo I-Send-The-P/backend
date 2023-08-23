@@ -15,13 +15,13 @@ public class QuestionSummaryDto {
     private String title;
     private LocalDateTime createdTime;
     private LocalDateTime lastModifiedDate;
-    private QuestionType questionType;
+    private Long questionTypeId;
     private InquiryStatus inquiryStatus;
 
     public QuestionSummaryDto(Question question) {
         this.title = question.getTitle();
         this.createdTime = question.getCreateDate();
-        this.questionType = question.getQuestionType();
+        this.questionTypeId = question.getQuestionTypeId();
         this.lastModifiedDate = question.getLastModifiedDate();
         this.inquiryStatus = question.getStatus();
     }

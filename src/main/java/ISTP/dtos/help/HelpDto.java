@@ -17,7 +17,7 @@ public class HelpDto {
     private String questionContent;
     private LocalDateTime questionCreatedTime;
     private LocalDateTime questionLastModifiedDate;
-    private QuestionType questionType;
+    private Long questionTypeId;
     private InquiryStatus inquiryStatus;
     private LocalDateTime answerCreatedTime;
     private LocalDateTime answerLastModifiedDate;
@@ -28,7 +28,7 @@ public class HelpDto {
         this.questionContent = question.getContent();
         this.questionCreatedTime = question.getCreateDate();
         this.questionLastModifiedDate = question.getLastModifiedDate();
-        this.questionType = question.getQuestionType();
+        this.questionTypeId = question.getQuestionTypeId();
         this.inquiryStatus = question.getStatus();
         this.answerContent = answer.getContent();
         this.answerCreatedTime = answer.getCreateDate();
