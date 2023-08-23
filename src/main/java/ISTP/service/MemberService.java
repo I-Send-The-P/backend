@@ -2,9 +2,10 @@ package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
-import ISTP.domain.member.Alarm;
+import ISTP.domain.help.Answer;
+import ISTP.domain.help.question.Question;
 import ISTP.domain.member.Member;
-import ISTP.repository.MemberRepository;
+import ISTP.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,11 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final RequestRepository requestRepository;
+    private final AcceptRepository acceptRepository;
+    private final BoardRepository boardRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
 
     @Transactional
     public Long save(Member member) {
@@ -102,10 +108,21 @@ public class MemberService {
 
     //회원 탈퇴 기능
     /**
-     * 탈퇴 시 이 회원과 연관되어있는 내용들 다 없애야하는데 어떻게 할지 고민 ㅠ
+     * 탈퇴 시 이 회원과 연관되어있는 내용들 다 없애야하는데 어떻게 할지 고민
      */
     @Transactional
     public void withdrawal(Member member) {
+        requestRepository.deleteByMemberId(member.getId());
+        acceptRepository.deleteByMemberId(member.getId());
+
+        List<Question> questions = member.getQuestions();
+        for (Question question : questions) {
+            List<Answer> answers = answerRepository.findV2ByQuestionId(question.getId());
+        }
+        questionRepository.deleteByMemberId(member.getId());
+        answerRepository.deleteByMemberId(member.getId());
+
+        boardRepository.deleteByMemberId(member.getId());
         memberRepository.delete(member);
         log.info("{} 회원 삭제 완료", member);
     }
@@ -131,7 +148,7 @@ public class MemberService {
     @Transactional
     public void changeAlarm(Member member) {
         member.changeAlarm();
-        if(member.isAlarm()){
+        if(member.isAlarmStatus()){
             log.info("알람 OFF로 변경");
         }
         else {
@@ -147,9 +164,9 @@ public class MemberService {
 
 
     //알람 발송을 위해 혈액형이 같은 모든 멤버 조회 메서드
-    public List<Member> findAllByMyBloodType(BloodType bloodType) {
-        log.info("혈액형이 {}인 모든 멤버 조회", bloodType);
-        return memberRepository.findAllByMyBloodType(bloodType);
+    public List<Member> findAlarmMember(BloodType bloodType, boolean alarmStatus, String address) {
+        log.info("혈액형이 {}이고 알람이 On 이고 주소가 {}인 모든 멤버 조회", bloodType, address);
+        return memberRepository.findAllByMyBloodTypeAndAlarmStatusAndAddress(bloodType, alarmStatus, address);
     }
 
     // 특정 멤버의 요청글 작성 리스트 받아오기

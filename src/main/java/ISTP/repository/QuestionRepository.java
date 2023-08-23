@@ -14,4 +14,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> findAllByMemberIdOrderByCreateDateDesc(@Param("memberId") Long memberId);
 
+    void deleteByMemberId(Long memberId);
 }

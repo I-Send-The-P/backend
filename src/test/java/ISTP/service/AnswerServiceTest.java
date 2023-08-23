@@ -56,6 +56,7 @@ class AnswerServiceTest {
         Question question2 = questionService.findById(2L);
         Answer answer2 = answerService.createAnswer("answer2", member2, question2);
         answerService.save(answer2);
+        System.out.println("member1 = " + member1.getAnswers());
     }
 
     @Test

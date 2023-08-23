@@ -13,5 +13,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("SELECT b FROM Board b WHERE b.boardType = :boardType ORDER BY b.createDate DESC")
     List<Board> findAllByBoardType(@Param("boardType") BoardType boardType);
 
+    void deleteByMemberId(Long memberId);
+
 
 }

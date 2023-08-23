@@ -39,7 +39,8 @@ public class Member extends BaseEntity { // 사용자
     private BloodType myBloodType;
     private String email; //이메일이 없었음 ㅜㅜ
     private String address;
-    private boolean alarm; // 알람기능
+    private boolean alarmStatus; // 알람기능
+    private LocalDateTime lastDate; // 마지막 헌혈 날짜
     private int count = 0; // 헌혈 횟수
 
     @OneToMany(mappedBy = "member")
@@ -74,14 +75,16 @@ public class Member extends BaseEntity { // 사용자
         this.nickname = nickname;
         this.age = age;
         this.phoneNumber = phoneNumber;
-        this.alarm = true;
+        this.alarmStatus = true;
+        this.alarmStatus = true;
     }
 
     public Member(String loginId, String password, String nickname) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
-        this.alarm = true;
+        this.alarmStatus = true;
+        this.alarmStatus = true;
     }
 
     public Member(String loginId, String password, String nickname, String address) {
@@ -89,10 +92,11 @@ public class Member extends BaseEntity { // 사용자
         this.password = password;
         this.nickname = nickname;
         this.address = address;
-        this.alarm = true;
+        this.alarmStatus = true;
+        this.alarmStatus = true;
     }
 
-    public Member(String loginId, String password, String name, String nickname, int age, Gender gender, String phoneNumber, BloodType myBloodType, String email, String address, boolean alarm) {
+    public Member(String loginId, String password, String name, String nickname, int age, Gender gender, String phoneNumber, BloodType myBloodType, String email, String address, boolean alarmStatus) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
@@ -103,7 +107,7 @@ public class Member extends BaseEntity { // 사용자
         this.myBloodType = myBloodType;
         this.email = email;
         this.address = address;
-        this.alarm = alarm;
+        this.alarmStatus = alarmStatus;
     }
 
     //== 연관관계 메서드==//
@@ -141,11 +145,10 @@ public class Member extends BaseEntity { // 사용자
 
     //알람 상태 변경하는 메서드
     public void changeAlarm() {
-        if(alarm) {
-            alarm = false;
-        }
-        else {
-            alarm = true;
+        if (alarmStatus) {
+            alarmStatus = false;
+        } else {
+            alarmStatus = true;
         }
     }
 
