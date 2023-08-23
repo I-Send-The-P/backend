@@ -7,11 +7,13 @@ import ISTP.domain.member.Member;
 import ISTP.repository.AlarmRepository;
 import ISTP.repository.MemberAlarmRepository;
 import ISTP.repository.MemberRepository;
+import ISTP.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,10 +25,11 @@ public class AlarmService {
     private final AlarmRepository alarmRepository;
     private final MemberRepository memberRepository;
     private final MemberAlarmRepository memberAlarmRepository;
+    private final RequestRepository requestRepository;
 
     @Transactional //여기서 받는 멤버는 요청한 멤버
     public Long createAlarmForMember(Member requestMember, Request request) {
-        Alarm alarm = new Alarm(requestMember, request.getTitle(), false);
+        Alarm alarm = new Alarm(requestMember, request.getTitle(), request.getId(),  false);
         List<Member> acceptAlarmMember = memberRepository.
                 findAllByMyBloodTypeAndAlarmStatusAndAddress
                         (request.getBloodType(), true, "인천시");
@@ -46,6 +49,20 @@ public class AlarmService {
     }
 
 
+    //한 멤버가 지금까지 받은 알람 요청서 조회
+    public List<Request> findAllAccept(Long memberId) {
+        Member member = memberRepository.findById(memberId).get();
+        List<MemberAlarm> allByAcceptMember = memberAlarmRepository.findAllByAcceptMemberOrderByCreateDateDesc(member);
+        List<Request> requests = new ArrayList<>();
+        for (MemberAlarm memberAlarm : allByAcceptMember) {
+            Alarm alarm = memberAlarm.getAlarm();
+            Request request = requestRepository.findById(alarm.getRequestId()).get();
+            requests.add(request);
+        }
+        return requests;
+    }
+
+    //알람 페이지에서 누르면 isRead-> true 로 변경
 
 
 }

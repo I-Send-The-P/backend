@@ -53,7 +53,7 @@ public class InitData {
             Member member8 = new Member("loginId8", "password8", "test8", "별명8", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "인천시", true);
             Member member9 = new Member("loginId9", "password9", "test9", "별명9", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시", true);
             Member member10 = new Member("loginId10", "password10", "test10", "별명10", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "인천시", true);
-
+            member1.changeAlarm();
             em.persist(member1);em.persist(member2);em.persist(member3);em.persist(member4);em.persist(member5);
             em.persist(member6);em.persist(member7);em.persist(member8);em.persist(member9);em.persist(member10);
 

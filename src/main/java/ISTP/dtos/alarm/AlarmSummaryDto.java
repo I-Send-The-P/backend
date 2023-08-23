@@ -1,4 +1,4 @@
-package ISTP.dtos.member;
+package ISTP.dtos.alarm;
 
 
 import ISTP.domain.bloodDonation.request.Request;

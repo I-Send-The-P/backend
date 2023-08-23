@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class MemberAlarm {
+public class MemberAlarm extends BaseEntity{
 
     @Id
     @GeneratedValue

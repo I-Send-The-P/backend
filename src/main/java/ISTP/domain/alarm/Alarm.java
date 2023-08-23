@@ -29,6 +29,7 @@ public class Alarm extends BaseEntity {
 
     private String content;
     private boolean isRead;
+    private Long requestId;
 
     @OneToMany(mappedBy = "alarm")
     private List<MemberAlarm> memberAlarms = new ArrayList<>();
@@ -38,9 +39,10 @@ public class Alarm extends BaseEntity {
         memberAlarms.add(memberAlarm);
     }
 
-    public Alarm(Member requestMember, String content, boolean isRead) {
+    public Alarm(Member requestMember, String content, Long requestId, boolean isRead) {
         this.requestMember = requestMember;
         this.content = content;
+        this.requestId = requestId;
         this.isRead = isRead;
     }
 }

@@ -59,7 +59,7 @@ public class RequestController {
 
         Long savedId = requestService.save(savedRequest);
 
-        if(savedRequest.getAddress().equals("전체")) { // 전체 선택하면 전체의 사람들한테 보내짐
+        /*if(savedRequest.getAddress().equals("전체")) { // 전체 선택하면 전체의 사람들한테 보내짐
             List<Member> allByMemberBloodType = requestService.findAllByMemberBloodType(savedRequest.getBloodType());
             for (Member m : allByMemberBloodType) {
                 System.out.println("전체 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
@@ -70,7 +70,7 @@ public class RequestController {
             for (Member m : regionByMemberBloodType) {
                 System.out.println("지역만 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
             }
-        }
+        }*/
 
         //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?
         //=========규혁 추가==========
