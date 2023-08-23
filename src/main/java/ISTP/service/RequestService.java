@@ -5,7 +5,6 @@ import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import ISTP.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -73,4 +72,11 @@ public class RequestService {
         return requestRepository.findAllByMemberNickname(nickname);
     }
 
+    public List<Member> findRegionByMemberBloodType(String requestAddress, BloodType bloodType) {
+        return requestRepository.findRegionByMemberBloodType(requestAddress, bloodType);
+    }
+
+    public List<Member> findAllByMemberBloodType(BloodType bloodType) {
+        return requestRepository.findAllByMemberBloodType(bloodType);
+    }
 }

@@ -43,17 +43,17 @@ public class InitData {
 
         @Transactional
         public void init() {
-            Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시");
-            Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "서울시");
+            Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시", true);
+            Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "서울시", true);
             em.persist(member1);
             em.persist(member2);
 
-            Request request1 = new Request(member1, "sickness1", "title1", "content1", LocalDateTime.now().plusDays(1), "111-111", "나사렛병원", RequestStatus.신청, BloodType.A_PLUS, "부", "혈소판1");
-            Request request2 = new Request(member1, "sickness2", "title2", "content2", LocalDateTime.now().plusDays(2), "222-222", "나사렛병원", RequestStatus.신청, BloodType.B_PLUS, "모", "혈소판2");
-            Request request3 = new Request(member1, "sickness3", "title3", "content3", LocalDateTime.now().plusDays(3), "333-333", "나사렛병원", RequestStatus.신청, BloodType.A_PLUS, "친구", "혈소판3");
-            Request request4 = new Request(member2, "sickness4", "title4", "content4", LocalDateTime.now().plusDays(4), "444-444", "인하대병원", RequestStatus.신청, BloodType.A_PLUS, "지인", "혈소판4");
-            Request request5 = new Request(member2, "sickness5", "title5", "content5", LocalDateTime.now().plusDays(5), "555-555", "인하대병원", RequestStatus.신청, BloodType.A_PLUS, "동생", "혈소판5");
-            Request request6 = new Request(member2, "sickness6", "title6", "content6", LocalDateTime.now().plusDays(6), "666-666", "인하대병원", RequestStatus.신청, BloodType.B_PLUS, "형", "혈소판6");
+            Request request1 = new Request(member1, "sickness1", "title1", "content1", LocalDateTime.now().plusDays(1), "111-111", "나사렛병원", RequestStatus.신청, BloodType.A_PLUS, "부", "혈소판1", "인천");
+            Request request2 = new Request(member1, "sickness2", "title2", "content2", LocalDateTime.now().plusDays(2), "222-222", "나사렛병원", RequestStatus.신청, BloodType.B_PLUS, "모", "혈소판2", "인천");
+            Request request3 = new Request(member1, "sickness3", "title3", "content3", LocalDateTime.now().plusDays(3), "333-333", "나사렛병원", RequestStatus.신청, BloodType.A_PLUS, "친구", "혈소판3", "인천");
+            Request request4 = new Request(member2, "sickness4", "title4", "content4", LocalDateTime.now().plusDays(4), "444-444", "인하대병원", RequestStatus.신청, BloodType.A_PLUS, "지인", "혈소판4", "인천");
+            Request request5 = new Request(member2, "sickness5", "title5", "content5", LocalDateTime.now().plusDays(5), "555-555", "인하대병원", RequestStatus.신청, BloodType.A_PLUS, "동생", "혈소판5", "인천");
+            Request request6 = new Request(member2, "sickness6", "title6", "content6", LocalDateTime.now().plusDays(6), "666-666", "인하대병원", RequestStatus.신청, BloodType.B_PLUS, "형", "혈소판6", "인천");
 
             member1.addRequest(request1);
             member1.addRequest(request2);

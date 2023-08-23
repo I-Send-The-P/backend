@@ -13,4 +13,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAllByOrderByCreateDateDesc();
 
     List<Question> findAllByMemberIdOrderByCreateDateDesc(@Param("memberId") Long memberId);
+
 }

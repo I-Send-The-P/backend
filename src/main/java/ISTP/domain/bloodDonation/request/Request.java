@@ -34,6 +34,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private BloodType bloodType;
     private String relationship;
     private String requests_blood_type; // 무슨 헌혈인지
+    private String address;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,7 +45,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     }
 
     public Request(Member member, String sickness, String title, String content, LocalDateTime duration, String number, String hospital,
-                   RequestStatus status, BloodType bloodType, String relationship, String requests_blood_type) {
+                   RequestStatus status, BloodType bloodType, String relationship, String requests_blood_type, String address) {
         this.member = member;
         this.sickness = sickness;
         this.title = title;
@@ -56,6 +57,7 @@ public class Request extends BaseEntity { // 헌혈 요청
         this.bloodType = bloodType;
         this.relationship = relationship;
         this.requests_blood_type = requests_blood_type;
+        this.address = address;
     } // createdTime도 생성자에서 받기
 
 

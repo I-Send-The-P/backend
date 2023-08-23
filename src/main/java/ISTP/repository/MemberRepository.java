@@ -20,4 +20,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("SELECT m FROM Member m WHERE m.count > 10 ORDER BY m.count DESC LIMIT 5")
     List<Member> findTop5ByCount();
+
 }

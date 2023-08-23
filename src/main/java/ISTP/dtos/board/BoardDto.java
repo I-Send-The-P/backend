@@ -1,4 +1,4 @@
-package ISTP.Dtos.board;
+package ISTP.dtos.board;
 
 
 import ISTP.domain.board.Board;

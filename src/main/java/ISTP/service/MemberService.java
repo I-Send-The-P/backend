@@ -131,7 +131,7 @@ public class MemberService {
     @Transactional
     public void changeAlarm(Member member) {
         member.changeAlarm();
-        if(member.getAlarm().equals(Alarm.가능)){
+        if(member.isAlarm()){
             log.info("알람 OFF로 변경");
         }
         else {
