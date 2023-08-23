@@ -1,5 +1,6 @@
 package ISTP.controller;
 
+import ISTP.dtos.request.RequestRe;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
@@ -54,6 +55,7 @@ public class RequestController {
         Request savedRequest = new Request(member, request.getSickness(), request.getTitle(), request.getContent(),
                 LocalDateTime.now().plusDays(3), request.getNumber(), request.getHospital(), RequestStatus.신청,
                 BloodType.A_PLUS, request.getRelationship(), request.getRequests_blood_type());
+        // 혈액형 고정, 기간 몰라서 3일로 고정함
 
         Long savedId = requestService.save(savedRequest);
 

@@ -1,8 +1,8 @@
 package ISTP.controller;
 
+import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.dtos.member.MemberMyPageDto;
-import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import ISTP.dtos.request.MyAcceptDto;
@@ -104,7 +104,7 @@ public class MemberController {
     }
 
     //회원 삭제
-    @DeleteMapping("/maPages/{memberId}/delete")
+    @DeleteMapping("/myPages/{memberId}/delete")
     public void deleteMember(@PathVariable Long memberId){
         Member member = memberService.findById(memberId);
         memberService.withdrawal(member);

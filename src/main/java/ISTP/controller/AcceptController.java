@@ -31,16 +31,18 @@ public class AcceptController {
         return savedId;
     }
 
-    @PostMapping("/change_finish/{requestId}") // 헌혈 후 완료버튼 누르기
-    public void finish(@PathVariable Long requestId) {
-        Accept accept = acceptService.findById(requestId);
+    @PostMapping("/{requestId}/change_finish/{acceptId}") // 헌혈 후 완료버튼 누르기
+    public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
+        Accept accept = acceptService.findById(acceptId);
         accept.update_finish();
+        memberService.countPlus(accept.getMember());
     }
 
-    @PostMapping("/change_cancel/{requestId}") // 수락했는데 취소하는것
-    public void cancel(@PathVariable Long requestId) {
-        Accept accept = acceptService.findById(requestId);
+    @PostMapping("/{requestId}/change_cancel/{acceptId}") // 수락했는데 취소하는것
+    public void cancel(@PathVariable Long requestId, @PathVariable Long acceptId) {
+        Accept accept = acceptService.findById(acceptId);
         accept.update_cancel();
+        Request request = requestService.findById(requestId);
+        request.update_request();
     }
-
 }

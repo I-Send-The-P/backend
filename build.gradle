@@ -26,7 +26,7 @@ dependencies {
 	// implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.json', name: 'json', version: '20210307'
+	implementation 'net.nurigo:sdk:4.3.0'
 
 	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
