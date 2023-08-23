@@ -1,11 +1,9 @@
 package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodType;
-import ISTP.domain.board.Board;
-import ISTP.domain.board.BoardType;
-import ISTP.domain.help.question.InquiryStatus;
-import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
+import ISTP.domain.help.question.QuestionType;
+import ISTP.domain.help.question.QuestionTypeName;
 import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
+import static ISTP.domain.help.question.QuestionTypeName.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,16 +34,20 @@ class QuestionServiceTest {
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
-                question = new Question("title" + i, "content" + i, InquiryType.계정문의, member1);
+                QuestionType questionType = new QuestionType(ACCOUNT);
+                question = new Question("title" + i, "content" + i, questionType, member1);
             }
             else if(i <= 6) {
-                question = new Question("title" + i, "content" + i, InquiryType.건의사항, member2);
+                QuestionType questionType = new QuestionType(SUGGESTION);
+                question = new Question("title" + i, "content" + i, questionType, member2);
             }
             else if(i <= 9) {
-                question = new Question("title" + i, "content" + i, InquiryType.프로그램문의, member1);
+                QuestionType questionType = new QuestionType(PROGRAM);
+                question = new Question("title" + i, "content" + i, questionType, member1);
             }
             else {
-                question = new Question("title" + i, "content" + i, InquiryType.기타, member2);
+                QuestionType questionType = new QuestionType(ETC);
+                question = new Question("title" + i, "content" + i, questionType, member2);
             }
             questionService.save(question);
         }
@@ -54,7 +55,8 @@ class QuestionServiceTest {
 
     @Test
     public void findById() {
-        Question question = new Question("abc", "abc", InquiryType.계정문의, null);
+        QuestionType questionType = new QuestionType(ACCOUNT);
+        Question question = new Question("abc", "abc", questionType, null);
         questionService.save(question);
         Question findQuestion = questionService.findById(question.getId());
         assertThat(findQuestion).isEqualTo(question);
@@ -67,17 +69,20 @@ class QuestionServiceTest {
 
     @Test
     public void updateQuestion() {
-        Question question = new Question("abc", "abc", InquiryType.계정문의, null);
+        QuestionType questionType = new QuestionType(ACCOUNT);
+        Question question = new Question("abc", "abc", questionType, null);
         questionService.save(question);
-        questionService.updateQuestion(question, "updateTitle", "updateContent", InquiryType.프로그램문의);
+        QuestionType updateQUestionType = new QuestionType(PROGRAM);
+        questionService.updateQuestion(question, "updateTitle", "updateContent", updateQUestionType);
         assertThat(question.getTitle()).isEqualTo("updateTitle");
         assertThat(question.getContent()).isEqualTo("updateContent");
-        assertThat(question.getInquiryType()).isEqualTo(InquiryType.프로그램문의);
+        assertThat(question.getQuestionType().getQuestionType()).isEqualTo(PROGRAM);
     }
 
     @Test
     public void deleteQuestion() {
-        Question question = new Question("abc", "abc", InquiryType.계정문의, null);
+        QuestionType questionType = new QuestionType(ACCOUNT);
+        Question question = new Question("abc", "abc", questionType, null);
         questionService.save(question);
         questionService.deleteQuestion(question);
 

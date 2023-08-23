@@ -1,11 +1,9 @@
 package ISTP.service;
 
-import ISTP.domain.board.Board;
-import ISTP.domain.board.BoardType;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.InquiryStatus;
-import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
+import ISTP.domain.help.question.QuestionType;
 import ISTP.repository.AnswerRepository;
 import ISTP.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,12 +42,12 @@ public class QuestionService {
     }
 
     @Transactional
-    public void updateQuestion(Question question, String updateTitle, String updateContent, InquiryType updateInquiryType) {
+    public void updateQuestion(Question question, String updateTitle, String updateContent, QuestionType updateQuestionType) {
         if(question.getStatus().equals(InquiryStatus.문의완료)) {
             log.info("이미 문의완료 상태이기에 수정할 수 없음");
             return;
         }
-        question.updateQuestion(updateTitle, updateContent, updateInquiryType);
+        question.updateQuestion(updateTitle, updateContent, updateQuestionType);
         log.info("문의글 수정 완료 {}", question);
     }
     @Transactional

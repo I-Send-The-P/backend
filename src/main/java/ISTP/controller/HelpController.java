@@ -38,7 +38,7 @@ public class HelpController {
             throw new IllegalArgumentException("문의글 작성 시 오류 발생");
         }
         Member member = memberService.findById(memberId);
-        Question question = new Question(form.getTitle(), form.getContent(), form.getInquiryType(), member);
+        Question question = new Question(form.getTitle(), form.getContent(), form.getQuestionType(), member);
         questionService.save(question);
         return question.getId();
     }
@@ -65,7 +65,7 @@ public class HelpController {
             throw new IllegalArgumentException("문의글 수정 시 오류 발생");
         }
         Question question = questionService.findById(questionId);
-        questionService.updateQuestion(question, form.getTitle(), form.getContent(), form.getInquiryType());
+        questionService.updateQuestion(question, form.getTitle(), form.getContent(), form.getQuestionType());
         return question.getId();
     }
 

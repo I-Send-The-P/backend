@@ -1,7 +1,5 @@
 package ISTP.controller;
 
-import ISTP.domain.MemberAlarm;
-import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import ISTP.dtos.alarm.AcceptAndIsReadDto;
 import ISTP.dtos.alarm.AlarmSummaryDto;

@@ -1,6 +1,6 @@
 package ISTP.dtos.help;
 
-import ISTP.domain.help.question.InquiryType;
+import ISTP.domain.help.question.QuestionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,6 +17,6 @@ public class QuestionEditForm {
     @NotBlank
     private String content;
     @NotNull
-    private InquiryType inquiryType;
+    private QuestionType questionType;
 
 }
