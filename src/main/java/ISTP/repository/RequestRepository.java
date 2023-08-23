@@ -23,4 +23,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     Request findOneById(Long requestId);
     List<Request> findAllByBloodTypeAndMemberNot(BloodType bloodType, Member member);
     List<Request> findAllByMemberNickname(String nickname);
+
+    void deleteByMemberId(Long memberId);
 }

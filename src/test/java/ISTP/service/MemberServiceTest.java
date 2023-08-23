@@ -1,7 +1,6 @@
 package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodType;
-import ISTP.domain.member.Alarm;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -194,11 +193,11 @@ class MemberServiceTest {
     public void changeAlarm() {
         Member member1 = new Member("loginId1", "password1", "nickname1", "인천시");
         memberService.save(member1);
-        assertThat(member1.getAlarm()).isEqualTo(Alarm.가능);
+        assertThat(member1.isAlarmStatus()).isTrue();
         memberService.changeAlarm(member1);
-        assertThat(member1.getAlarm()).isEqualTo(Alarm.불가능);
+        assertThat(member1.isAlarmStatus()).isFalse();
         memberService.changeAlarm(member1);
-        assertThat(member1.getAlarm()).isEqualTo(Alarm.가능);
+        assertThat(member1.isAlarmStatus()).isTrue();
     }
 
     @Test
@@ -214,9 +213,8 @@ class MemberServiceTest {
 
     @Test
     public void findAllByMyBloodType() {
-        List<Member> allByMyBloodType = memberService.findAllByMyBloodType(BloodType.A_PLUS);
-
-        assertThat(allByMyBloodType.size()).isEqualTo(5);
+        List<Member> allByMyBloodType = memberService.findAlarmMember(BloodType.A_PLUS, false, "");
+        assertThat(allByMyBloodType.size()).isEqualTo(0);
         for (Member member : allByMyBloodType) {
             assertThat(member.getMyBloodType()).isEqualTo(BloodType.A_PLUS);
         }

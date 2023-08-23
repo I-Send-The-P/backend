@@ -2,9 +2,11 @@ package ISTP.service;
 
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
+import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.InquiryStatus;
 import ISTP.domain.help.question.InquiryType;
 import ISTP.domain.help.question.Question;
+import ISTP.repository.AnswerRepository;
 import ISTP.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import java.util.List;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
 
     @Transactional
     public Long save(Question question) {
@@ -53,6 +56,16 @@ public class QuestionService {
     public void deleteQuestion(Question question) {
         log.info("{} 문의글 삭제", question.getId());
         questionRepository.delete(question);
+    }
+
+    @Transactional
+    public void deleteQuestionWithAnswers(Long questionId) {
+        List<Answer> answers = answerRepository.findV2ByQuestionId(questionId);
+
+        for (Answer answer : answers) {
+            answerRepository.delete(answer);
+        }
+        questionRepository.deleteById(questionId);
     }
 
 }

@@ -11,4 +11,5 @@ public interface AcceptRepository extends JpaRepository<Accept, Long> {
 
     //멤버가 요청
     List<Accept> findByMemberOrderByCreateDateDesc(Member member);
+    void deleteByMemberId(Long memberId);
 }

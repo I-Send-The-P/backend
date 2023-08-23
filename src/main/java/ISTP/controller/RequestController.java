@@ -7,9 +7,11 @@ import ISTP.domain.member.Member;
 import ISTP.dtos.request.RequestDto;
 import ISTP.dtos.request.RequestListDto;
 import ISTP.dtos.request.RequestRe;
+import ISTP.service.AlarmService;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class RequestController {
 
     private final RequestService requestService;
     private final MemberService memberService;
+    private final AlarmService alarmService;
 
     @GetMapping("/list") // 게시글 리스트
     public Page<RequestListDto> requestList(@PageableDefault(size = 10) Pageable pageable) {
@@ -47,14 +51,15 @@ public class RequestController {
     @PostMapping("/blood")// 게시글 올리기
     public Long bloodRequest(@Validated @RequestBody RequestRe request) {
         Member member = memberService.findById(1L);
-
         Request savedRequest = new Request(member, request.getSickness(), request.getTitle(), request.getContent(),
                 LocalDateTime.now().plusDays(3), request.getNumber(), request.getHospital(), RequestStatus.신청,
                 BloodType.A_PLUS, request.getRelationship(), request.getRequests_blood_type());
 
         Long savedId = requestService.save(savedRequest);
 
-
+        //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?
+        //=========규혁 추가==========
+        alarmService.createAlarmForMember(member, savedRequest);
         return savedId;
     }
 

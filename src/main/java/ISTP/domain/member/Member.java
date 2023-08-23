@@ -40,8 +40,7 @@ public class Member extends BaseEntity { // 사용자
     private String email; //이메일이 없었음 ㅜㅜ
     private String address;
     private LocalDateTime lastDate; // 마지막 헌혈 날짜
-    @Enumerated(STRING)
-    private Alarm alarm; // 알람기능
+    private boolean alarmStatus;
     private int count = 0; // 헌혈 횟수
 
     @OneToMany(mappedBy = "member")
@@ -76,14 +75,14 @@ public class Member extends BaseEntity { // 사용자
         this.nickname = nickname;
         this.age = age;
         this.phoneNumber = phoneNumber;
-        this.alarm = Alarm.가능;
+        this.alarmStatus = true;
     }
 
     public Member(String loginId, String password, String nickname) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
-        this.alarm = Alarm.가능;
+        this.alarmStatus = true;
     }
 
     public Member(String loginId, String password, String nickname, String address) {
@@ -91,7 +90,7 @@ public class Member extends BaseEntity { // 사용자
         this.password = password;
         this.nickname = nickname;
         this.address = address;
-        this.alarm = Alarm.가능;
+        this.alarmStatus = true;
     }
 
     public Member(String loginId, String password, String name, String nickname, int age, Gender gender, String phoneNumber, BloodType myBloodType, String email, String address) {
@@ -105,7 +104,7 @@ public class Member extends BaseEntity { // 사용자
         this.myBloodType = myBloodType;
         this.email = email;
         this.address = address;
-        this.alarm = Alarm.가능;
+        this.alarmStatus = true;
     }
 
     //== 연관관계 메서드==//
@@ -143,11 +142,11 @@ public class Member extends BaseEntity { // 사용자
 
     //알람 상태 변경하는 메서드
     public void changeAlarm() {
-        if(alarm.equals(Alarm.가능)) {
-            alarm = Alarm.불가능;
+        if(alarmStatus == true) {
+            alarmStatus = false;
         }
         else {
-            alarm = Alarm.가능;
+            alarmStatus = true;
         }
     }
 
