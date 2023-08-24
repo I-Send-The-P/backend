@@ -76,7 +76,7 @@ public class MemberController {
         }
     }
 
-    //마이페이지로에 뿌려줄 DTO
+    //마이페이지에 뿌려줄 DTO
     @ResponseBody
     @GetMapping("/myPages/{memberId}")
     public MemberMyPageDto myPage(@PathVariable Long memberId) {
@@ -138,4 +138,5 @@ public class MemberController {
         }
         return acceptDtos;
     }
+    //rbgur
 }

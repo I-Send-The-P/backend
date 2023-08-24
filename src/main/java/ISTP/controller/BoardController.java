@@ -1,6 +1,5 @@
 package ISTP.controller;
 
-
 import ISTP.dtos.board.BoardDto;
 import ISTP.dtos.board.BoardEditForm;
 import ISTP.dtos.board.BoardSaveForm;
