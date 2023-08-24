@@ -1,8 +1,6 @@
 package ISTP.dtos.help;
 
-import ISTP.domain.help.question.InquiryStatus;
 import ISTP.domain.help.question.Question;
-import ISTP.domain.help.question.QuestionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,14 +13,14 @@ public class QuestionSummaryDto {
     private String title;
     private LocalDateTime createdTime;
     private LocalDateTime lastModifiedDate;
-    private QuestionType questionType;
-    private InquiryStatus inquiryStatus;
+    private Long questionTypeId;
+    private boolean answerStatus;
 
     public QuestionSummaryDto(Question question) {
         this.title = question.getTitle();
         this.createdTime = question.getCreateDate();
-        this.questionType = question.getQuestionType();
+        this.questionTypeId = question.getQuestionTypeId();
         this.lastModifiedDate = question.getLastModifiedDate();
-        this.inquiryStatus = question.getStatus();
+        this.answerStatus = question.isAnswerStatus();
     }
 }

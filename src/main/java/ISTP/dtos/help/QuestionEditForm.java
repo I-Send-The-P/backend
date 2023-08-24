@@ -17,6 +17,6 @@ public class QuestionEditForm {
     @NotBlank
     private String content;
     @NotNull
-    private QuestionType questionType;
+    private String questionType;
 
 }

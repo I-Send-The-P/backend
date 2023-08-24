@@ -1,7 +1,6 @@
 package ISTP.controller;
 
 import ISTP.domain.member.Member;
-import ISTP.dtos.member.MemberMyPageDto;
 import ISTP.dtos.member.MemberRankingDto;
 import ISTP.service.MemberService;
 import lombok.RequiredArgsConstructor;

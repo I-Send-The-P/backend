@@ -79,6 +79,14 @@ public class InitData {
             em.persist(request5);
             em.persist(request6);
 
+            QuestionType questionType1 = new QuestionType(ACCOUNT);
+            em.persist(questionType1);
+            QuestionType questionType2 = new QuestionType(PROGRAM);
+            em.persist(questionType2);
+            QuestionType questionType3 = new QuestionType(SUGGESTION);
+            em.persist(questionType3);
+            QuestionType questionType4 = new QuestionType(ETC);
+            em.persist(questionType4);
             for(int i = 1; i <= 12; i++) {
                 Board board;
                 if(i <= 3) {
@@ -99,7 +107,7 @@ public class InitData {
             for(int i = 1; i <= 12; i++) {
                 Question question;
                 if(i <= 3) {
-                    QuestionType questionType = new QuestionType(ACCOUNT);
+                    QuestionType questionType = em.find(QuestionType.class, 1L);
                     question = new Question("title" + i, "content" + i, questionType, member1);
                     if(i == 1) {
                         question.changeStatus();
@@ -113,15 +121,15 @@ public class InitData {
                     }
                 }
                 else if(i <= 6) {
-                    QuestionType questionType = new QuestionType(SUGGESTION);
+                    QuestionType questionType = em.find(QuestionType.class, 2L);
                     question = new Question("title" + i, "content" + i, questionType, member2);
                 }
                 else if(i <= 9) {
-                    QuestionType questionType = new QuestionType(PROGRAM);
+                    QuestionType questionType = em.find(QuestionType.class, 3L);
                     question = new Question("title" + i, "content" + i, questionType, member1);
                 }
                 else {
-                    QuestionType questionType = new QuestionType(ETC);
+                    QuestionType questionType = em.find(QuestionType.class, 4L);
                     question = new Question("title" + i, "content" + i, questionType, member2);
                 }
                 em.persist(question);

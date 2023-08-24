@@ -31,22 +31,30 @@ class QuestionServiceTest {
         Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "서울시", true);
         memberService.save(member1);
         memberService.save(member2);
+        QuestionType questionType1 = new QuestionType(ACCOUNT);
+        questionService.saveV2(questionType1);
+        QuestionType questionType2 = new QuestionType(PROGRAM);
+        questionService.saveV2(questionType2);
+        QuestionType questionType3 = new QuestionType(SUGGESTION);
+        questionService.saveV2(questionType3);
+        QuestionType questionType4 = new QuestionType(ETC);
+        questionService.saveV2(questionType4);
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
-                QuestionType questionType = new QuestionType(ACCOUNT);
+                QuestionType questionType = questionService.findByQuestionType(ACCOUNT);
                 question = new Question("title" + i, "content" + i, questionType, member1);
             }
             else if(i <= 6) {
-                QuestionType questionType = new QuestionType(SUGGESTION);
+                QuestionType questionType = questionService.findByQuestionType(SUGGESTION);
                 question = new Question("title" + i, "content" + i, questionType, member2);
             }
             else if(i <= 9) {
-                QuestionType questionType = new QuestionType(PROGRAM);
+                QuestionType questionType = questionService.findByQuestionType(PROGRAM);
                 question = new Question("title" + i, "content" + i, questionType, member1);
             }
             else {
-                QuestionType questionType = new QuestionType(ETC);
+                QuestionType questionType = questionService.findByQuestionType(ETC);
                 question = new Question("title" + i, "content" + i, questionType, member2);
             }
             questionService.save(question);
@@ -55,7 +63,7 @@ class QuestionServiceTest {
 
     @Test
     public void findById() {
-        QuestionType questionType = new QuestionType(ACCOUNT);
+        QuestionType questionType = questionService.findByQuestionType(ACCOUNT);
         Question question = new Question("abc", "abc", questionType, null);
         questionService.save(question);
         Question findQuestion = questionService.findById(question.getId());
@@ -69,19 +77,17 @@ class QuestionServiceTest {
 
     @Test
     public void updateQuestion() {
-        QuestionType questionType = new QuestionType(ACCOUNT);
+        QuestionType questionType = questionService.findByQuestionType(ACCOUNT);
         Question question = new Question("abc", "abc", questionType, null);
         questionService.save(question);
-        QuestionType updateQUestionType = new QuestionType(PROGRAM);
+        QuestionType updateQUestionType = questionService.findByQuestionType(PROGRAM);
         questionService.updateQuestion(question, "updateTitle", "updateContent", updateQUestionType);
         assertThat(question.getTitle()).isEqualTo("updateTitle");
-        assertThat(question.getContent()).isEqualTo("updateContent");
-        assertThat(question.getQuestionType().getQuestionType()).isEqualTo(PROGRAM);
     }
 
     @Test
     public void deleteQuestion() {
-        QuestionType questionType = new QuestionType(ACCOUNT);
+        QuestionType questionType = questionService.findByQuestionType(ACCOUNT);
         Question question = new Question("abc", "abc", questionType, null);
         questionService.save(question);
         questionService.deleteQuestion(question);

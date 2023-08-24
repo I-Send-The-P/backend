@@ -1,6 +1,5 @@
 package ISTP.controller;
 
-import ISTP.dtos.bloodCenter.BloodCenterDTO;
 import ISTP.dtos.request.RequestRe;
 import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
@@ -9,7 +8,6 @@ import ISTP.domain.member.Member;
 import ISTP.dtos.request.RequestDto;
 import ISTP.dtos.request.RequestListDto;
 import ISTP.service.AlarmService;
-import ISTP.service.BloodCenterService;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +26,7 @@ public class RequestController {
 
     private final RequestService requestService;
     private final MemberService memberService;
-    private final BloodCenterService bloodService;
+    //private final BloodCenterService bloodService;
     private final AlarmService alarmService;
 
     @GetMapping("/list") // 게시글 리스트
@@ -102,10 +99,10 @@ public class RequestController {
         requestService.delete(requestId);
     }
 
-    @GetMapping("api")
+   /* @GetMapping("api")
     public List<BloodCenterDTO> api(@RequestParam String region) throws Exception {
         return bloodService.API(region);
-    }
+    }*/
 }
 
 
