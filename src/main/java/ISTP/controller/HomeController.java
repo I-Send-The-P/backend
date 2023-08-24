@@ -4,8 +4,11 @@ import ISTP.domain.member.Member;
 import ISTP.dtos.member.MemberRankingDto;
 import ISTP.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
