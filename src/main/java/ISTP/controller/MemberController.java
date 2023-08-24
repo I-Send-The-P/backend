@@ -138,5 +138,4 @@ public class MemberController {
         }
         return acceptDtos;
     }
-    //rbgur
 }
